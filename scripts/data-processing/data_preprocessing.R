@@ -1,7 +1,9 @@
 library(tidyverse)
 library(lubridate)
 
-# filtering conditions
+here::i_am("scripts/data-processing/data_preprocessing.R")
+
+# filtering conditions from capstone project
 min_yr <- 1970
 
 # stable_url <- 'https://calcofi.org/downloads/database/CalCOFI_Database_194903-202001_csv_22Sep2021.zip'
@@ -28,10 +30,10 @@ selected_cols <- bottle_cols %>%
 # store column indices
 selected_col_ix <- selected_cols %>% pull(colnum)
 
-# filter cast data by year
+# filter cast data by year  <- not using for internship
 selected_casts <- read_csv(file = cast_raw_data,
-                           col_select = c(Cst_Cnt, Year)) %>%
-  filter(Year >= min_yr)
+                           col_select = c(Cst_Cnt, Year))  # %>%
+  # filter(Year >= min_yr)
 
 # store cast count of selected casts
 selected_cast_cnt <- selected_casts %>% pull(Cst_Cnt)
@@ -96,6 +98,6 @@ bottle <- read_csv(file = cast_raw_data,
 # nrow(bottle) == nrow(bottle_raw)
 
 # export
-bottle_rda <- here("data/processed/bottle.RData")
+bottle_rda <- here("documents/github/CalCOFI-internship/data/processed/bottle.RData")
 save(bottle, file = bottle_rda) # as r binary
 # write_csv(bottle, file = 'bottle-processed.csv') # as csv

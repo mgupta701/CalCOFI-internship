@@ -1,5 +1,9 @@
 library(tidyverse)
 
+# changing to numeric for filtering purposes
+bottle$line <- as.numeric(bottle$line)
+bottle$station <- as.numeric(bottle$station)
+
 ###### Time series plot for oxygen
 
 # Modifying original ts plot to show percentile
@@ -7,13 +11,15 @@ oxy_ts_plot_percentile <- function(n_ranges, percentile, date_min, date_max){
   if (n_ranges > 1){
     bottle_sub <- bottle %>% 
       subset(station <= 60) %>%
-      filter(depth>=0 & depth<=500) %>%
+      filter(depth>=0 & depth<=500,
+             line >= 76.7 & line <= 93.3) %>%
       mutate(depth_fac = cut(depth, n_ranges))
   }
   else {
     bottle_sub <- bottle %>% 
       subset(station <= 60) %>%
-      filter(depth>=0 & depth<=500) %>%
+      filter(depth>=0 & depth<=500,
+             line >= 76.7 & line <= 93.3) %>%
       mutate(depth_fac = rep("[0,500]", length(year)))
   }
 
@@ -31,7 +37,8 @@ oxy_ts_plot_percentile <- function(n_ranges, percentile, date_min, date_max){
     geom_point(na.rm=T) +
     geom_line(linetype='dashed') +
     labs(title = paste(percentile,
-                       "th Percentile Oxygen Across All On-Shelf Stations Over Time"), 
+                       "th Percentile Oxygen Over Time"), 
+         subtitle = "Data is from stations on the shelf within the core sampling region",
          x = "Date", 
          y = "Oxygen (mL/L)", 
          color = "Depth Range (m)", 
@@ -48,7 +55,8 @@ oxy_ts_plot_percentile <- function(n_ranges, percentile, date_min, date_max){
   
 }
 
-oxy_ts_plot_percentile(5, 95, '1949-02-28', '2020-01-26')
+oxy_ts_plot_percentile(3, 5, '1949-02-28', '2020-01-26')
+
 
 # Time series plot of the standard deviation in oxygen values
 oxy_ts_plot_sd <- function(n_ranges, date_min, date_max){
@@ -98,19 +106,21 @@ oxy_ts_plot_sd <- function(n_ranges, date_min, date_max){
 oxy_ts_plot_sd(5, '1970-06-14', '2020-01-26')
 
 
-##### Making one oxygen plot per quarter
+## Faceting by  quarter
 
 oxy_ts_plot_percentile_quarters <- function(n_ranges, percentile, date_min, date_max){
   if (n_ranges > 1){
     bottle_sub <- bottle %>% 
       subset(station <= 60) %>%
-      filter(depth>=0 & depth<=500) %>%
+      filter(depth>=0 & depth<=500,
+             line >= 76.7 & line <= 93.3) %>%
       mutate(depth_fac = cut(depth, n_ranges))
   }
   else {
     bottle_sub <- bottle %>% 
       subset(station <= 60) %>%
-      filter(depth>=0 & depth<=500) %>%
+      filter(depth>=0 & depth<=500,
+             line >= 76.7 & line <= 93.3) %>%
       mutate(depth_fac = rep("[0,500]", length(year)))
   }
   
@@ -150,7 +160,7 @@ oxy_ts_plot_percentile_quarters <- function(n_ranges, percentile, date_min, date
   
 }
 
-oxy_ts_plot_percentile_quarters(5, 5, '1949-02-28', '2020-01-26')
+oxy_ts_plot_percentile_quarters(3, 95, '1949-02-28', '2020-01-26')
 
 
 ###### Time Series plot for temperature
@@ -159,13 +169,15 @@ temp_ts_plot_percentile_quarters <- function(n_ranges, percentile, date_min, dat
   if (n_ranges > 1){
     bottle_sub <- bottle %>% 
       subset(station <= 60) %>%
-      filter(depth>=0 & depth<=500) %>%
+      filter(depth>=0 & depth<=500,
+             line >= 76.7 & line <= 93.3) %>%
       mutate(depth_fac = cut(depth, n_ranges))
   }
   else {
     bottle_sub <- bottle %>% 
       subset(station <= 60) %>%
-      filter(depth>=0 & depth<=500) %>%
+      filter(depth>=0 & depth<=500,
+             line >= 76.7 & line <= 93.3) %>%
       mutate(depth_fac= rep("[0,500]",length(year)))
   }
   
@@ -173,7 +185,6 @@ temp_ts_plot_percentile_quarters <- function(n_ranges, percentile, date_min, dat
     group_by(year, quarter, depth_fac) %>%
     summarise(temperature_perc = quantile(temperature, probs = percentile/100, na.rm = TRUE),
               date = median(date, na.rm = T))
-  
   z %>% 
     ggplot(aes(x = date, 
                y = temperature_perc, 
@@ -201,4 +212,4 @@ temp_ts_plot_percentile_quarters <- function(n_ranges, percentile, date_min, dat
     theme_bw() 
 }
 
-temp_ts_plot_percentile_quarters(5, 95, '1949-02-28', '2020-01-26')
+temp_ts_plot_percentile_quarters(2, 95, '1949-02-28', '2020-01-26')

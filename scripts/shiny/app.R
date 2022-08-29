@@ -4,6 +4,7 @@ if (!require("librarian")){
 }
 librarian::shelf(
   here, htmltools, leaflet, lubridate, scales, shiny, shinydashboard, sp, tidyverse) #Make sure all packages required are installed
+here::i_am("scripts/shiny/app.R")
 
 fxns_r <- here("scripts/shiny/spatial-page/page_functions.R") #Loading in the script keeps app.R updated without having to run it separately
 bottle_rda <- here("data/processed/bottle.RData") #The binary file containing variables and functions required to run the app

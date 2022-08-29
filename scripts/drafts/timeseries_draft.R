@@ -213,3 +213,84 @@ temp_ts_plot_percentile_quarters <- function(n_ranges, percentile, date_min, dat
 }
 
 temp_ts_plot_percentile_quarters(2, 95, '1949-02-28', '2020-01-26')
+
+
+install.packages("plyr")
+install.packages("lubridate")
+install.packages("ggplot2")
+install.packages("dplyr")
+install.packages("ggExtra")
+
+
+library(plyr)
+library(lubridate)
+library(ggplot2)
+library(dplyr)
+library(ggExtra)
+
+
+
+
+
+bottle_heat<- bottle
+
+bottle_heat<-bottle_heat %>% select(c("quarter","year","oxygen"))
+quarter<-bottle_heat$quarter
+oxygen<-bottle_heat$oxygen
+year<-bottle_heat$year
+
+#Assign color variables
+col1 = "#d8e1cf" 
+col2 = "#438484"
+
+#original heatmap 
+
+heat_map<-ggplot(bottle_heat, aes(year,quarter)) + geom_tile(aes(fill = oxygen),colour = "white", na.rm = TRUE) +
+  scale_fill_gradient(low = col1, high = col2) +  
+  guides(fill=guide_legend(title="Oxygen Levels")) +
+  theme_bw() + theme_minimal() + 
+  labs(title="Oxygen Levels From 1949-2020 over 4 quarters",x = "Year", y = "Quarter")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+heat_map
+
+
+
+
+
+
+
+
+# heat_map2<-ggplot(bottle_heat, aes(year,quarter)) + geom_tile(aes(fill = oxygen),colour = "white", na.rm = TRUE) +
+#   scale_fill_gradient2(low ="#FF0000" , mid="#000000", high = "#0000FF") +  
+#   guides(fill=guide_legend(title="Oxygen Levels"),labels = paste(c(0,0, 2.5, 5.0, 7.5,10.0), "Mg/L")) +
+#   theme_bw() + theme_minimal() + 
+#   labs(title = "Oxygen Levels over quarters from 1949-2020 ",x = "Year", y = "Quarter") +
+#   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+# heat_map2
+
+
+hist(bottle_heat$oxygen)
+
+#updated heatmap with different oxygen scale,  different colors, and added units to legend
+heat_map2<-ggplot(bottle_heat, aes(year,quarter)) + geom_tile(aes(fill = oxygen),colour = "white", na.rm = TRUE) +
+     scale_fill_gradientn(colours = c("red", "black", "blue"), breaks= c(2,4,6),labels=c("2 mg/L ","4 mg/L","6 mg/L")) +  
+     guides(fill=guide_legend(title="Oxygen Levels"))+
+     theme_bw() + theme_minimal() + 
+     labs(title = "Oxygen Levels over quarters from 1949-2020 ",
+                   x = "Year", y = "Quarter") +
+     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+heat_map2
+
+
+# heatmap without quarters-- NOT DONE
+heat_map3<-ggplot(bottle_heat, aes(year)) + geom_tile(aes(fill = oxygen),colour = "white", na.rm = TRUE) +
+  scale_fill_gradientn(colours = c("red", "black", "blue"), breaks= c(2,4,6),labels=c("2 mg/L ","4 mg/L","6 mg/L")) +  
+  guides(fill=guide_legend(title="Oxygen Levels"))+
+  theme_bw() + theme_minimal() + 
+  labs(title = "Oxygen Levels  from 1949-2020 ",
+       x = "Year") +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+heat_map3
+
+
+

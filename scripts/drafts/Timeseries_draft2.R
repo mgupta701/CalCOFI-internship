@@ -132,17 +132,56 @@ oxy_ts_plot_percentile_quarters(3, 95, '1949-02-28', '2020-01-26')
 
 
 
-#### heat map visual 
+## Counting unique stations for each quarter
+bottle_station_count <- bottle_filter %>%
+  unite('station_id', line:station, remove = FALSE)
+
+bottle_station_count <- bottle_station_count %>%
+  unite('time', c(year, quarter), remove = FALSE)
+
+bottle_station_count<-bottle_station_count%>% select(c("station_id",time,oxygen))
+bottle_station_count<-na.omit(bottle_station_count)
 
 
+station_number_check<-bottle_station_count %>%select(c("station_id","time"))
+station_number_check<-station_number_check %>%unique()%>% count(time)
+station_number_check
 
-## filter bottle data set 
+## Counting unique stations for each year
+bottle_station_count <- bottle_filter %>%
+  unite('station_id', line:station, remove = FALSE)
+
+year_check_pre<-bottle_station_count%>% select(c("station_id","year","oxygen"))
+year_check_pre<-na.omit(bottle_station_count)
+year_check<-bottle_station_count %>%select(c("station_id","year"))
+year_check<-year_check %>%unique()%>% count(year)
+year_check
+
+
+# filter bottle data set 
 
 bottle_filter <- bottle %>%
   subset(station <= 60) %>%
   filter(depth>=0 & depth<=300,
          line >= 76.7 & line <= 93.3)
 
+# select years that have less than n stations
+n <- 5
+yrs_under_threshold <- list()  # what object to create here?
+
+for (row in 1:nrow(year_check)) {
+  stations <- year_check[row, "n"]
+  year <- year_check[row, "year"]
+  
+  if (stations < n){
+    yrs_under_threshold <- c(yrs_under_threshold, year)
+  }
+}
+
+yrs_under_threshold
+
+
+#### heat map visual 
 
 # function to get list of oxygen for heat map
 get_oxygen_perc_quarters <- function(percentile, date_min, date_max){
@@ -168,21 +207,24 @@ yform <- list(categoryorder = "array",
                                 "Spring",
                                 "Winter"))
 
-# interactive heatmap with year and quarter
+## Interactive heatmap with year and quarter
 
 median_heatmap_quarterly <- plot_ly(x = hm_median_quarters$year,
                                     y = hm_median_quarters$quarter,
                                     z = hm_median_quarters$oxygen_perc,
                                     type = "heatmap",
-                                    colors = "Blues", 
+                                    colors = "magma",  # previously used "Blues"
                                     hovertemplate = "Year:%{x} <br> Quarter: %{y} <br> Median Oxygen Level: %{z}<extra></extra>") %>%
   layout(title="Median Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",
-         yaxis=yform)
+         yaxis=yform,
+         plot_bgcolor = 'gray')
+
+
 median_heatmap_quarterly
 
 
 
-# heatmap without quarters
+## heatmap without quarters
 get_oxygen_perc_years <- function(percentile, date_min, date_max){
 
   h <- bottle_filter %>%
@@ -211,7 +253,7 @@ median_heatmap_yearly <- plot_ly(x = hm_median_year$year,
 
 median_heatmap_yearly
 
-#heatmap with mean levels of oxygen yearly
+## heatmap with mean levels of oxygen yearly
 
 hm_mean_year <- bottle_filter %>%
   group_by(year) %>%
@@ -222,15 +264,20 @@ hm_mean_year$y <- rep(0,71)
 ax <- list(showticklabels = FALSE)
 
 mean_heatmap_yearly <- plot_ly(x = hm_mean_year$year, 
-                               y=hm_mean_year$y, 
-                               z=mean_data$mean_temp, type="heatmap", colors ="RdYlBu", hovertemplate= "Year:%{x} <br> Mean Oxygen Level: %{z}<extra></extra>")%>%
-  layout(title="Mean Oxygen Levels in Core CalCOFI stations up to 300 meters", yaxis=ax, plot_bgcolor='grey')
+                               y = hm_mean_year$y, 
+                               z = hm_mean_year$mean_oxy, 
+                               type="heatmap", 
+                               colors ="RdYlBu", 
+                               hovertemplate= "Year:%{x} <br> Mean Oxygen Level: %{z}<extra></extra>") %>%
+  layout(title="Mean Oxygen Levels in Core CalCOFI stations up to 300 meters", 
+         yaxis=ax, 
+         plot_bgcolor='grey')
 mean_heatmap_yearly
 
 
-mean_heatmap_yearly <- plot_ly(x = mean_data$year, 
-                               y = mean_data$y, 
-                               z = mean_data$mean_temp, 
+mean_heatmap_yearly <- plot_ly(x = hm_mean_year$year, 
+                               y = hm_mean_year$y, 
+                               z = hm_mean_year$mean_oxy, 
                                type = "heatmap", 
                                colors = rev("magma"), 
                                hovertemplate= "Year:%{x} <br> Mean Oxygen Level: %{z}<extra></extra>")%>%
@@ -243,35 +290,10 @@ mean_heatmap_yearly
 
 # Manual check to see that mean heatmaps are accurate
 
-test_ox_data<- bottle_filter %>% filter(year== 2000) %>% select(c("oxygen"))%>%na.omit()
+test_ox_data <- bottle_filter %>% filter(year == 2000) %>% select(c("oxygen"))%>%na.omit()
 ox_sum<-sum(test_ox_data$oxygen,na.rm = TRUE)
 ox_sum/nrow(test_ox_data)
 
-
-## Counting unique stations for each quarter
-bottle_station_count <- bottle_filter %>%
-  unite('station_id', line:station, remove = FALSE)
-
-bottle_station_count <- bottle_station_count %>%
-  unite('time', c(year, quarter), remove = FALSE)
-
-bottle_station_count<-bottle_station_count%>% select(c("station_id",time,oxygen))
-bottle_station_count<-na.omit(bottle_station_count)
-
-
-station_number_check<-bottle_station_count %>%select(c("station_id","time"))
-station_number_check<-station_number_check %>%unique()%>% count(time)
-station_number_check
-
-## Counting unique stations for each year
-bottle_station_count <- bottle_filter %>%
-  unite('station_id', line:station, remove = FALSE)
-
-year_check_pre<-bottle_station_count%>% select(c("station_id","year","oxygen"))
-year_check_pre<-na.omit(bottle_station_count)
-year_check<-bottle_station_count %>%select(c("station_id","year"))
-year_check<-year_check %>%unique()%>% count(year)
-year_check
 
 # write.csv(year_check,"/Users/annalieseadams/Desktop/year_check.csv",row.names=FALSE)
 # write.csv(station_number_check,"/Users/annalieseadams/Desktop/station_check.csv",row.names=FALSE)

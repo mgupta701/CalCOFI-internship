@@ -163,27 +163,38 @@ year_check
 # filter bottle data set 
 
 bottle$line<-as.numeric(bottle$line)
-bottle_filter<- bottle %>%
+bottle_filter <- bottle %>%
   subset(station <= 60) %>%
-  filter(depth>=0 & depth<=300,
+  filter(depth >= 0 & depth <= 150,
          line >= 76.7 & line <= 93.3)
 
-# select years that have less than n stations
+# return years that have less than n stations
 n <- 5
-yrs_under_threshold <- list()  # what object to create here?
+yrs_under_threshold <- data.frame(year = double())
 
 for (row in 1:nrow(year_check)) {
   stations <- year_check[row, "n"]
   year <- year_check[row, "year"]
   
   if (stations < n){
-    yrs_under_threshold <- c(yrs_under_threshold, year)
+    yrs_under_threshold <- rbind(yrs_under_threshold, year)
   }
 }
-
 yrs_under_threshold
 
+# return quarters that have less than n stations
 
+qts_under_threshold <- data.frame(time = character())
+
+for (row in 1:nrow(station_number_check)) {
+  stations <- station_number_check[row, "n"]
+  quarter <- station_number_check[row, "time"]
+  
+  if (stations < n){
+    qts_under_threshold <- rbind(qts_under_threshold, quarter)
+  }
+}
+qts_under_threshold
 #### heat map visual 
 
 
@@ -192,7 +203,7 @@ get_oxy_percent_quarters <- function(percentile, date_min, date_max){
  
     bottle_sub <- bottle %>% 
       subset(station <= 60) %>%
-      filter(line >= 76.7 & line <= 93.3, depth<=300) 
+      filter(line >= 76.7 & line <= 93.3, depth <= 150) 
   
   h <- bottle_sub %>%
     group_by(year, quarter) %>%
@@ -212,6 +223,8 @@ yform <- list(categoryorder = "array",
                                 "Summer",
                                 "Spring",
                                 "Winter"))
+
+hm_median_quarters
 
 
 ## Interactive heatmap with year and quarter
@@ -287,7 +300,7 @@ mean_heatmap_yearly
 
 mean_data_quarterly <- bottle_filter %>%
   group_by(year,quarter) %>%
-  summarise(mean_temp = mean(oxygen,na.rm = TRUE))
+  summarise(mean_oxy = mean(oxygen,na.rm = TRUE))
 mean_data_quarterly
 
 
@@ -304,16 +317,28 @@ mean_heatmap_quarterly <- plot_ly(x = mean_data_quarterly$year,
 mean_heatmap_quarterly
 
 
-
 add_missing_data<-data.frame("year"=c(1956,1956,1965,1967,1967,1968,1968,1970,1970,1970,1971,1971,1971,1973,1973,
                                       1973,1974,1974,1974,1976,1977,1977,1977,1978,1980,1980,1980,1981,1982,1982,
                                       1982,1991,2009,2018,2020,2020,2020),
                              "quarter"=c(3,4,4,1,4,3,4,1,2,4,2,3,4,1,2,3,1,2,3,3,1,2,3,4,1,2,3,4,2,3,4,2,2,3,2,3,4),
-                             "mean_temp"=c("NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN"
-                                           ,"NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN",
-                                           "NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN"))
+                             "mean_oxy"=c(NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+                                           ,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,
+                                           NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN))
 add_missing_data
-total_mean_quarterly <- rbind(add_missing_data, mean_data_quarterly)
+
+total_mean_quarterly <- rbind(add_missing_data, mean_data_quarterly) # append empty values with mean data
+
+# filter out quarters with under 5 stations sampled
+total_mean_quarterly <- total_mean_quarterly %>%
+  unite('time', c(year, quarter), remove = FALSE)  # add time column
+# change mean_oxy to NaN
+for (row in 1:nrow(total_mean_quarterly)){
+  if (total_mean_quarterly[row, "time"] %in% qts_under_threshold$time){
+    total_mean_quarterly[row, "mean_oxy"] <- NaN
+  }
+}
+
+
 total_mean_quarterly <- arrange(total_mean_quarterly, year) %>%
   mutate(quarter = recode(quarter,'1' = 'Winter','2' = 'Spring','3' =  'Summer','4'='Fall' ))
 mean_heatmap_quarterly2 <- plot_ly(x = total_mean_quarterly$year, 

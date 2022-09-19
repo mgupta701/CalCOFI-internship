@@ -220,13 +220,13 @@ heat_map2
 
 # interactive heatmap with year and quarter
 
-median_heatmap_quarterly<-plot_ly(x=hm_data$year, y=hm_data$quarter,z=hm_data$oxygen_perc, type="heatmap",colors="Blues", hovertemplate= "Year:%{x} <br> Quarter: %{y} <br> Median Oxygen Level: %{z}<extra></extra>")%>%
-  layout(title="Median Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",yaxis=yform)
+median_heatmap_quarterly<-plot_ly(x=hm_data$year, y=hm_data$quarter,z=hm_data$oxygen_perc, type="heatmap",colors="magma",reversescale=T, hovertemplate= "Year:%{x} <br> Quarter: %{y} <br> Median Oxygen Level: %{z}<extra></extra>")%>%
+  layout(title="Median Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",yaxis=yform, plot_bgcolor='grey')
 median_heatmap_quarterly
 
 
 
-# heatmap without quarters
+# heatmap without median value of oxygen yearly
 oxy_hm_wo_quarter <- function( percentile, date_min, date_max){
   
   bottle_sub <- bottle %>% 
@@ -247,8 +247,8 @@ hm2_data<- hm2_data %>% group_by(year)
 hm2_data$y<-rep(0,71)
 ax <- list(showticklabels = FALSE)
 
-median_heatmap_yearly<-plot_ly(x=hm2_data$year, y=hm2_data$y, z=hm2_data$oxygen_perc, type="heatmap", colors ="magma", hovertemplate= "Year:%{x} <br> Median Oxygen Level: %{z}<extra></extra>")%>%
-  layout(title="Median Oxygen Levels in Core CalCOFI stations up to 300 meters", yaxis=ax)
+median_heatmap_yearly<-plot_ly(x=hm2_data$year, y=hm2_data$y, z=hm2_data$oxygen_perc, type="heatmap", colors ="magma",reversescale=T, hovertemplate= "Year:%{x} <br> Median Oxygen Level: %{z}<extra></extra>")%>%
+  layout(title="Median Oxygen Levels in Core CalCOFI stations up to 300 meters", yaxis=ax, plot_bgcolor='grey')
 median_heatmap_yearly
 
 #heatmap with mean levels of oxygen yearly
@@ -259,21 +259,53 @@ mean_data<-bottle_filter %>%
   group_by(year) %>%
   summarise(mean_temp = mean(oxygen,na.rm = TRUE))
 
-b<-bottle_filter %>%     group_by(year) %>% filter(year==1973)
+b<-bottle_filter %>% group_by(year) %>% filter(year==1973)
 b
 
 
 mean_data$y<-rep(0,71)
 ax <- list(showticklabels = FALSE)
 
-mean_heatmap_yearly<-plot_ly(x=mean_data$year, y=mean_data$y, z=mean_data$mean_temp, type="heatmap", colors ="RdYlBu", hovertemplate= "Year:%{x} <br> Mean Oxygen Level: %{z}<extra></extra>")%>%
+
+
+mean_heatmap_yearly<-plot_ly(x=mean_data$year, y=mean_data$y, z=mean_data$mean_temp, type="heatmap", colors ="magma",reversescale=T, hovertemplate= "Year:%{x} <br> Mean Oxygen Level: %{z}<extra></extra>")%>%
   layout(title="Mean Oxygen Levels in Core CalCOFI stations up to 300 meters", yaxis=ax, plot_bgcolor='grey')
 mean_heatmap_yearly
 
 
-mean_heatmap_yearly<-plot_ly(x=mean_data$year, y=mean_data$y, z=mean_data$mean_temp, type="heatmap", colors =rev("magma"), hovertemplate= "Year:%{x} <br> Mean Oxygen Level: %{z}<extra></extra>")%>%
-  layout(title="Mean Oxygen Levels in Core CalCOFI stations up to 300 meters", yaxis=ax, plot_bgcolor='grey')
-mean_heatmap_yearly
+
+#heatmap with mean levels of oxygen showed quarterly 
+
+bottle_filter<- bottle %>% subset(station <= 60) %>%
+  filter(line >= 76.7 & line <= 93.3, depth<=300) 
+
+mean_data_quarterly<-bottle_filter %>%
+  group_by(year,quarter) %>%
+  summarise(mean_temp = mean(oxygen,na.rm = TRUE))
+mean_data_quarterly
+
+
+
+total_mean_quarterly%>% group_by(year,quarter)
+mean_heatmap_quarterly<-plot_ly(x=mean_data_quarterly$year, y=mean_data_quarterly$quarter,z=mean_data_quarterly$mean_temp, type="heatmap",colors="magma",reversescale=T, hovertemplate= "Year:%{x} <br> Quarter: %{y} <br> Mean Oxygen Level: %{z}<extra></extra>")%>%
+  layout(title="Mean Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",yaxis=yform, plot_bgcolor='grey')
+mean_heatmap_quarterly
+
+
+
+add_missing_data<-data.frame("year"=c(1956,1956,1965,1967,1967,1968,1968,1970,1970,1970,1971,1971,1971,1973,1973,
+                                      1973,1974,1974,1974,1976,1977,1977,1977,1978,1980,1980,1980,1981,1982,1982,
+                                      1982,1991,2009,2018,2020,2020,2020),
+                             "quarter"=c(3,4,4,1,4,3,4,1,2,4,2,3,4,1,2,3,1,2,3,3,1,2,3,4,1,2,3,4,2,3,4,2,2,3,2,3,4),
+                             "mean_temp"=c("NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN"
+                                           ,"NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN",
+                                           "NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN","NaN"))
+add_missing_data
+total_mean_quarterly<-rbind(add_missing_data,mean_data_quarterly)
+total_mean_quarterly<- arrange(total_mean_quarterly,year)
+mean_heatmap_quarterly2<-plot_ly(x=total_mean_quarterly$year, y=total_mean_quarterly$quarter,z=total_mean_quarterly$mean_temp, type="heatmap",colors="magma",reversescale=T, hovertemplate= "Year:%{x} <br> Quarter: %{y} <br> Mean Oxygen Level: %{z}<extra></extra>")%>%
+  layout(title="Mean Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",yaxis=yform, plot_bgcolor='grey')
+mean_heatmap_quarterly2
 
 
 # test to make sure values displayed are correct
@@ -308,5 +340,7 @@ year_check
 write.csv(year_check,"/Users/annalieseadams/Desktop/year_check.csv",row.names=FALSE)
 write.csv(station_number_check,"/Users/annalieseadams/Desktop/station_check.csv",row.names=FALSE)
 
+write.csv(f,"/Users/annalieseadams/Desktop/n.csv",row.names=FALSE)
 
-
+f<-bottle_filter%>%group_by(year)%>%count()
+f

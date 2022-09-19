@@ -1,5 +1,5 @@
 ---
-title: "Oxygen in the Ocean"
+title: "Oxygen in the California Current"
 author: "Annie Adams, Mallika Gupta"
 date: "9/15/2022"
 output: html_document
@@ -9,17 +9,17 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Introduction
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Learn more about the California current, oxygen's variability within it, and ... 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# Getting to know the California Current
 
 ```{r cars}
 summary(cars)
 ```
 
-## Including Plots
+# CalCOFI: Mission and Origin Story
 
 You can also embed plots, for example:
 

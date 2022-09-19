@@ -241,6 +241,12 @@ mean_heatmap_yearly <- plot_ly(x = mean_data$year,
 mean_heatmap_yearly
 
 
+# Manual check to see that mean heatmaps are accurate
+
+test_ox_data<- bottle_filter %>% filter(year== 2000) %>% select(c("oxygen"))%>%na.omit()
+ox_sum<-sum(test_ox_data$oxygen,na.rm = TRUE)
+ox_sum/nrow(test_ox_data)
+
 
 ## Counting unique stations for each quarter
 bottle_station_count <- bottle_filter %>%
@@ -267,8 +273,7 @@ year_check<-bottle_station_count %>%select(c("station_id","year"))
 year_check<-year_check %>%unique()%>% count(year)
 year_check
 
-write.csv(year_check,"/Users/annalieseadams/Desktop/year_check.csv",row.names=FALSE)
-write.csv(station_number_check,"/Users/annalieseadams/Desktop/station_check.csv",row.names=FALSE)
-
+# write.csv(year_check,"/Users/annalieseadams/Desktop/year_check.csv",row.names=FALSE)
+# write.csv(station_number_check,"/Users/annalieseadams/Desktop/station_check.csv",row.names=FALSE)
 
 

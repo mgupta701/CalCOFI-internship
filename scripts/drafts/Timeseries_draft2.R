@@ -356,6 +356,49 @@ mean_heatmap_quarterly2 <- plot_ly(x = total_mean_quarterly$year,
 mean_heatmap_quarterly2
 
 
+## same as above but median
+
+median_data_quarterly <- get_oxy_percent_quarters(50, '1949-02-28', '2020-01-26')
+median_data_quarterly <- median_data_quarterly[c("year", "quarter", "oxygen_perc")]
+
+
+add_missing_data_med <- data.frame("year"=c(1956,1956,1965,1967,1967,1968,1968,1970,1970,1970,1971,1971,1971,1973,1973,
+                                      1973,1974,1974,1974,1976,1977,1977,1977,1978,1980,1980,1980,1981,1982,1982,
+                                      1982,1991,2009,2018,2020,2020,2020),
+                             "quarter"=c(3,4,4,1,4,3,4,1,2,4,2,3,4,1,2,3,1,2,3,3,1,2,3,4,1,2,3,4,2,3,4,2,2,3,2,3,4),
+                             "oxygen_perc"=c(NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+                                          ,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,
+                                          NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN))
+
+total_median_quarterly <- rbind(add_missing_data_med, median_data_quarterly) # append empty values with mean data
+
+# filter out quarters with under 5 stations sampled
+total_median_quarterly <- total_median_quarterly %>%
+  unite('time', c(year, quarter), remove = FALSE)  # add time column
+# change mean_oxy to NaN for selected times
+for (row in 1:nrow(total_median_quarterly)){
+  if (total_median_quarterly[row, "time"] %in% qts_under_threshold$time){
+    total_median_quarterly[row, "mean_oxy"] <- NaN
+  }
+}
+total_median_quarterly <- total_median_quarterly[c("year", "quarter", "oxygen_perc")]
+
+total_median_quarterly <- arrange(total_mean_quarterly, year) %>%
+  mutate(quarter = recode(quarter,'1' = 'Winter','2' = 'Spring','3' =  'Summer','4'='Fall' ))
+
+
+median_heatmap_quarterly2 <- plot_ly(x = total_median_quarterly$year, 
+                                   y = total_median_quarterly$quarter,
+                                   z = total_median_quarterly$mean_oxy, 
+                                   type = "heatmap",
+                                   colors = "magma",
+                                   reversescale = T, 
+                                   hovertemplate= "Year:%{x} <br> Quarter: %{y} <br> Mean Oxygen Level: %{z}<extra></extra>") %>%
+  layout(title = "Median Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",
+         yaxis = yform, 
+         plot_bgcolor = 'grey')
+median_heatmap_quarterly2
+
 # test to make sure values displayed are correct
 test_ox_data<- bottle_filter %>% filter(year== 2000) %>% select(c("oxygen"))%>%na.omit()
 ox_sum<-sum(test_ox_data$oxygen,na.rm = TRUE)

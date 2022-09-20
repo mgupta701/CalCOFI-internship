@@ -165,7 +165,7 @@ year_check
 bottle$line<-as.numeric(bottle$line)
 bottle_filter <- bottle %>%
   subset(station <= 60) %>%
-  filter(depth >= 0 & depth <= 150,
+  filter(depth >= 0 & depth <= 300,
          line >= 76.7 & line <= 93.3)
 
 # return years that have less than n stations
@@ -331,19 +331,21 @@ total_mean_quarterly <- rbind(add_missing_data, mean_data_quarterly) # append em
 # filter out quarters with under 5 stations sampled
 total_mean_quarterly <- total_mean_quarterly %>%
   unite('time', c(year, quarter), remove = FALSE)  # add time column
-# change mean_oxy to NaN
+# change mean_oxy to NaN for selected times
 for (row in 1:nrow(total_mean_quarterly)){
   if (total_mean_quarterly[row, "time"] %in% qts_under_threshold$time){
     total_mean_quarterly[row, "mean_oxy"] <- NaN
   }
 }
-
+total_mean_quarterly <- total_mean_quarterly[c("year", "quarter", "mean_oxy")]
 
 total_mean_quarterly <- arrange(total_mean_quarterly, year) %>%
   mutate(quarter = recode(quarter,'1' = 'Winter','2' = 'Spring','3' =  'Summer','4'='Fall' ))
+
+
 mean_heatmap_quarterly2 <- plot_ly(x = total_mean_quarterly$year, 
                                    y = total_mean_quarterly$quarter,
-                                   z = total_mean_quarterly$mean_temp, 
+                                   z = total_mean_quarterly$mean_oxy, 
                                    type = "heatmap",
                                    colors = "magma",
                                    reversescale = T, 

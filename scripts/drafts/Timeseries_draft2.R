@@ -201,6 +201,7 @@ qts_under_threshold
 #### heat map visual 
 
 
+## Interactive heatmap with year and quarter
 # function to get list of oxygen for heat map
 get_oxy_percent_quarters <- function(percentile, date_min, date_max){
  
@@ -229,23 +230,88 @@ yform <- list(categoryorder = "array",
 
 hm_median_quarters
 
+add_missing_data_med<-data.frame("year"=c(1956,1956,1965,1967,1967,1968,1968,1970,1970,1970,1971,1971,1971,1973,1973,
+                                      1973,1974,1974,1974,1976,1977,1977,1977,1978,1980,1980,1980,1981,1982,1982,
+                                      1982,1991,2009,2018,2020,2020,2020),
+                             "quarter"=c(3,4,4,1,4,3,4,1,2,4,2,3,4,1,2,3,1,2,3,3,1,2,3,4,1,2,3,4,2,3,4,2,2,3,2,3,4),
+                             "oxygen_perc"=c(NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN
+                                          ,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,
+                                          NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN))
+add_missing_data_med
 
-## Interactive heatmap with year and quarter
+total_median_quarterly <- rbind(add_missing_data_med, median_data_quarterly) # append empty values with mean data
 
+# filter out quarters with under 5 stations sampled
+total_median_quarterly <- total_median_quarterly %>%
+  unite('time', c(year, quarter), remove = FALSE)  # add time column
+# change mean_oxy to NaN for selected times
+for (row in 1:nrow(total_median_quarterly)){
+  if (total_median_quarterly[row, "time"] %in% qts_under_threshold$time){
+    total_median_quarterly[row, "mean_oxy"] <- NaN
+  }
+}
+total_median_quarterly <- total_median_quarterly[c("year", "quarter", "oxygen_perc")]
 
+total_median_quarterly <- arrange(total_median_quarterly, year) %>%
+  mutate(quarter = recode(quarter,'1' = 'Winter','2' = 'Spring','3' =  'Summer','4'='Fall' ))
 
-median_heatmap_quarterly <- plot_ly(x = hm_median_quarters$year,
-                                    y = hm_median_quarters$quarter,
-                                    z = hm_median_quarters$oxygen_perc,
-                                    type = "heatmap",
-                                    colors = "magma",  # previously used "Blues"
-                                    reversescale = T, 
-                                    hovertemplate = "Year:%{x} <br> Quarter: %{y} <br> Median Oxygen Level: %{z} <br> Observations:%{year_obs_count} <extra></extra>") %>%
-  layout(title="Median Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",
-         yaxis=yform,
-         plot_bgcolor = 'gray')
-
+median_heatmap_quarterly <- plot_ly(x = total_median_quarterly$year, 
+                                     y = total_median_quarterly$quarter,
+                                     z = total_median_quarterly$oxygen_perc, 
+                                     type = "heatmap",
+                                     colors = "magma",
+                                     reversescale = T, 
+                                     hovertemplate= "Year:%{x} <br> Quarter: %{y} <br> Median Oxygen Level: %{z} <extra></extra>") %>%
+  layout(title = "Median Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",
+         yaxis = yform, 
+         plot_bgcolor = 'grey')
 median_heatmap_quarterly
+
+#median heatmap quarterly with observations in hover
+
+txt_med_quarter<-c("Obs:124","Obs:152","Obs:192","Obs:210","Obs:507","Obs:955","Obs:603","Obs:NaN","Obs:820","Obs:851",
+        "Obs:959","Obs:778","Obs:1535","Obs:1353","Obs:991","Obs:589","Obs:1907","Obs:2445","Obs:1877","Obs:1132",
+        "Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:858","Obs:721","Obs:1227","Obs:NaN","Obs:NaN",
+        "Obs:354","Obs:845","Obs:45","Obs:426","Obs:555","Obs:618","Obs:747","Obs:675","Obs:1262","Obs:1465",
+        "Obs:1825","Obs:1521","Obs:1554","Obs:1766","Obs:1978","Obs:1411","Obs:656","Obs:340","Obs:512","Obs:705",
+        "Obs:277","Obs:397","Obs:560","Obs:301","Obs:237","Obs:516","Obs:409","Obs:426","Obs:341","Obs:338",
+        "Obs:1315","Obs:1072","Obs:129","Obs:266","Obs:NaN","Obs:708","Obs:562","Obs:349","Obs:430","Obs:119",
+        "Obs:716","Obs:871","Obs:NaN","Obs:NaN","Obs:420","Obs:NaN","Obs:NaN","Obs:NaN",
+        "Obs:574","Obs:595","Obs:1306","Obs:877","Obs:1177","Obs:1392","Obs:NaN","Obs:NaN","Obs:NaN",
+        "Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:1649","Obs:NaN","Obs:255","Obs:NaN","Obs:NaN",
+        "Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:1113","Obs:1704","Obs:1541",
+        "Obs:1393","Obs:1471","Obs:NaN","Obs:492","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:427",
+        "Obs:NaN","Obs:1340","Obs:1128","Obs:1073","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:1265",
+        "Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:312","Obs:425","Obs:624","Obs:649","Obs:822","Obs:2473","Obs:2153","Obs:1113","Obs:1137",
+        "Obs:777","Obs:966","Obs:834","Obs:834","Obs:1079","Obs:819","Obs:833","Obs:988","Obs:958","Obs:941",
+        "Obs:934","Obs:945","Obs:825","Obs:959","Obs:2401","Obs:974","Obs:895","Obs:867","Obs:1079","Obs:857",
+        "Obs:866","Obs:777","Obs:900","Obs:895","Obs:NaN","Obs:1659","Obs:1117","Obs:559","Obs:880","Obs:886",
+        "Obs:1102","Obs:611","Obs:1067","Obs:702","Obs:781","Obs:781","Obs:1306","Obs:297","Obs:827","Obs:743",
+        "Obs:800","Obs:826","Obs:793","Obs:842","Obs:791","Obs:803","Obs:838","Obs:1192","Obs:810","Obs:830",
+        "Obs:1388","Obs:371","Obs:1096","Obs:1245","Obs:1932","Obs:706","Obs:761","Obs:804","Obs:814","Obs:835",
+        "Obs:816","Obs:984","Obs:602","Obs:814","Obs:778","Obs:802","Obs:810","Obs:833","Obs:988","Obs:564",
+        "Obs:821","Obs:816","Obs:785","Obs:1084","Obs:791","Obs:761","Obs:1313","Obs:251","Obs:813","Obs:824",
+        "Obs:840","Obs:851","Obs:867","Obs:835","Obs:824","Obs: 881","Obs:861","Obs:889","Obs:1086","Obs:710",
+        "Obs:595","Obs:789","Obs:1188:","Obs:428","Obs:867","Obs:837","Obs:NaN","Obs:1647","Obs:845","Obs:832",
+        "Obs:828","Obs:581","Obs:1009","Obs:715","Obs:823","Obs:746","Obs:797","Obs:812","Obs:1285","Obs:308",
+        "Obs:821","Obs:810","Obs:807","Obs:834","Obs:812","Obs:907","Obs:458","Obs:728","Obs:822","Obs:827",
+        "Obs:809","Obs:796","Obs:795","Obs:826","Obs:860","Obs:853","Obs:746","Obs:848","Obs:1040","Obs:611",
+        "Obs:801","Obs:821","Obs:NaN","Obs:579","Obs:1647","Obs:818","Obs:419","Obs:802","Obs:836","Obs:799",
+        "Obs:NaN","Obs:NaN","Obs:NaN","Obs:809")
+
+median_heatmap_quarterly2 <- plot_ly(x = total_median_quarterly$year, 
+                                   y = total_median_quarterly$quarter,
+                                   z = total_median_quarterly$oxygen_perc, 
+                                   text=txt_med_quarter,
+                                   type = "heatmap",
+                                   colors = "magma",
+                                   reversescale = T, 
+                                   hovertemplate= "Year:%{x} <br> Quarter: %{y} <br> Median Oxygen Level: %{z} <br> %{text} <extra></extra>") %>%
+  layout(title = "Median Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",
+         yaxis = yform, 
+         plot_bgcolor = 'grey')
+median_heatmap_quarterly2
+
 
 
 
@@ -263,21 +329,39 @@ get_oxygen_perc_years <- function(percentile, date_min, date_max){
 hm_median_years <- get_oxygen_perc_years(50, '1949-02-28', '2020-01-26')
 hm_median_years <- hm_median_years %>% group_by(year)
 
+
+
+
 hm_median_years$y <- rep(0,71)
 ax <- list(showticklabels = FALSE)
-year_obs_count<- bottle_filter %>% group_by(year)%>%count()
-txt<-c("Obs:678","Obs:2173","Obs:3408","Obs:4468","Obs:7361","Obs:3377","Obs:3179","Obs:1199","Obs:1644","Obs:4149","Obs:6666",
-        "Obs:4385","Obs:1891","Obs:1614","Obs:1514","Obs:2782","Obs:1619","Obs:2136","Obs:602","Obs:1169","Obs:4752","Obs:64",
-        "Obs:65","Obs:2065","Obs:35","Obs:1113","Obs:6109","Obs:747","Obs:427","Obs:3541","Obs:127","Obs:1934","Obs:312",
-        "Obs:2520","Obs:6876","Obs:3411","Obs:3719","Obs:3778","Obs:5159","Obs:3698","Obs:3438","Obs:3335","Obs:3479","Obs:3331",
-        "Obs:3173","Obs:3261","Obs:3624","Obs:3399","Obs:4979","Obs:3214","Obs:3216","Obs:3223","Obs:3189","Obs:3421","Obs:3201",
-        "Obs:3393","Obs:3455","Obs:3180","Obs:3320","Obs:3324","Obs:3133","Obs:3178","Obs:3324","Obs:3360","Obs:2835","Obs:3326",
-        "Obs:3307","Obs:3273","Obs:3044","Obs:2856","Obs:809")
 
 median_heatmap_yearly <- plot_ly(x = hm_median_years$year, 
                                  y = hm_median_years$y, 
                                  z = hm_median_years$oxygen_perc, 
-                                 text=txt,
+                                 type="heatmap", 
+                                 colors ="magma",
+                                 reversescale=T, 
+                                 hovertemplate= "Year:%{x} <br> Median Oxygen Level: %{z}<extra></extra>") %>%
+  layout(title = "Median Oxygen Levels in Core CalCOFI stations up to 300 meters", 
+         yaxis = ax, 
+         plot_bgcolor = 'grey')
+median_heatmap_yearly
+
+
+#median heatmap yearly with observations in hover
+year_obs_count<- bottle_filter %>% group_by(year)%>%count()
+txt_median_year<-c("Obs:678","Obs:2173","Obs:3408","Obs:4468","Obs:7361","Obs:NaN","Obs:3179","Obs:1199","Obs:1644","Obs:4149","Obs:6666",
+       "Obs:4385","Obs:1891","Obs:1614","Obs:1514","Obs:2782","Obs:1619","Obs:2136","Obs:602","Obs:1169","Obs:4752","Obs:64",
+       "Obs:65","Obs:2065","Obs:35","Obs:1113","Obs:6109","Obs:747","Obs:427","Obs:3541","Obs:Nan","Obs:1934","Obs:312",
+       "Obs:2520","Obs:6876","Obs:3411","Obs:3719","Obs:3778","Obs:5159","Obs:3698","Obs:3438","Obs:3335","Obs:3479","Obs:3331",
+       "Obs:3173","Obs:3261","Obs:3624","Obs:3399","Obs:4979","Obs:3214","Obs:3216","Obs:3223","Obs:3189","Obs:3421","Obs:3201",
+       "Obs:3393","Obs:3455","Obs:3180","Obs:3320","Obs:3324","Obs:3133","Obs:3178","Obs:3324","Obs:3360","Obs:2835","Obs:3326",
+       "Obs:3307","Obs:3273","Obs:3044","Obs:2856","Obs:809")
+
+median_heatmap_yearly2 <- plot_ly(x = hm_median_years$year, 
+                                 y = hm_median_years$y, 
+                                 z = hm_median_years$oxygen_perc, 
+                                 text=txt_median_year,
                                  type="heatmap", 
                                  colors ="magma",
                                  reversescale=T, 
@@ -285,7 +369,7 @@ median_heatmap_yearly <- plot_ly(x = hm_median_years$year,
   layout(title = "Median Oxygen Levels in Core CalCOFI stations up to 300 meters", 
          yaxis = ax, 
          plot_bgcolor = 'grey')
-median_heatmap_yearly
+median_heatmap_yearly2
 
 ## heatmap with mean levels of oxygen yearly
 
@@ -296,9 +380,23 @@ hm_mean_years <- bottle_filter %>%
 
 hm_mean_years$y <- rep(0,71)
 ax <- list(showticklabels = FALSE)
-txt<-c("Obs:678","Obs:2173","Obs:3408","Obs:4468","Obs:7361","Obs:3377","Obs:3179","Obs:1199","Obs:1644","Obs:4149","Obs:6666",
+mean_heatmap_yearly <- plot_ly(x = hm_mean_years$year, 
+                               y = hm_mean_years$y, 
+                               z = hm_mean_years$mean_oxy, 
+                               type = "heatmap", 
+                               colors = "magma",
+                               reversescale = T, 
+                               hovertemplate = "Year:%{x} <br> Mean Oxygen Level: %{z} <extra></extra>") %>%
+  layout(title = "Mean Oxygen Levels in Core CalCOFI stations up to 300 meters", 
+         yaxis = ax, 
+         plot_bgcolor = 'grey')
+mean_heatmap_yearly
+
+#mean heatmap yearly with observations in hover
+
+txt_mean_year<-c("Obs:678","Obs:2173","Obs:3408","Obs:4468","Obs:7361","Obs:NaN","Obs:3179","Obs:1199","Obs:1644","Obs:4149","Obs:6666",
        "Obs:4385","Obs:1891","Obs:1614","Obs:1514","Obs:2782","Obs:1619","Obs:2136","Obs:602","Obs:1169","Obs:4752","Obs:64",
-       "Obs:65","Obs:2065","Obs:35","Obs:1113","Obs:6109","Obs:747","Obs:427","Obs:3541","Obs:127","Obs:1934","Obs:312",
+       "Obs:65","Obs:2065","Obs:35","Obs:1113","Obs:6109","Obs:747","Obs:427","Obs:3541","Obs:Nan","Obs:1934","Obs:312",
        "Obs:2520","Obs:6876","Obs:3411","Obs:3719","Obs:3778","Obs:5159","Obs:3698","Obs:3438","Obs:3335","Obs:3479","Obs:3331",
        "Obs:3173","Obs:3261","Obs:3624","Obs:3399","Obs:4979","Obs:3214","Obs:3216","Obs:3223","Obs:3189","Obs:3421","Obs:3201",
        "Obs:3393","Obs:3455","Obs:3180","Obs:3320","Obs:3324","Obs:3133","Obs:3178","Obs:3324","Obs:3360","Obs:2835","Obs:3326",
@@ -307,7 +405,7 @@ txt<-c("Obs:678","Obs:2173","Obs:3408","Obs:4468","Obs:7361","Obs:3377","Obs:317
 mean_heatmap_yearly <- plot_ly(x = hm_mean_years$year, 
                                y = hm_mean_years$y, 
                                z = hm_mean_years$mean_oxy, 
-                               text=txt,
+                               text=txt_mean_year,
                                type = "heatmap", 
                                colors = "magma",
                                reversescale = T, 
@@ -328,18 +426,6 @@ mean_data_quarterly
 quarter_obs_count<- bottle_filter %>% group_by(year,quarter)%>%count()
 quarter_obs_count
 
-
-mean_heatmap_quarterly <- plot_ly(x = mean_data_quarterly$year, 
-                                  y = mean_data_quarterly$quarter,
-                                  z = mean_data_quarterly$mean_oxy, 
-                                  type = "heatmap",
-                                  colors = "magma",
-                                  reversescale = T, 
-                                  hovertemplate = "Year:%{x} <br> Quarter: %{y} <br> Mean Oxygen Level: %{z}<extra></extra>") %>%
-  layout(title = "Mean Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",
-         yaxis = yform, 
-         plot_bgcolor = 'grey')
-mean_heatmap_quarterly
 
 
 add_missing_data<-data.frame("year"=c(1956,1956,1965,1967,1967,1968,1968,1970,1970,1970,1971,1971,1971,1973,1973,
@@ -367,92 +453,64 @@ total_mean_quarterly <- total_mean_quarterly[c("year", "quarter", "mean_oxy")]
 total_mean_quarterly <- arrange(total_mean_quarterly, year) %>%
   mutate(quarter = recode(quarter,'1' = 'Winter','2' = 'Spring','3' =  'Summer','4'='Fall' ))
 
-txt4<-c("Obs:124","Obs:152","Obs:192","Obs:210","Obs:507","Obs:955","Obs:603","Obs:NaN","Obs:820","Obs:851",
+mean_heatmap_quarterly <- plot_ly(x =total_mean_quarterly$year, 
+                                  y = total_mean_quarterly$quarter,
+                                  z = total_mean_quarterly$mean_oxy, 
+                                  type = "heatmap",
+                                  colors = "magma",
+                                  reversescale = T, 
+                                  hovertemplate = "Year:%{x} <br> Quarter: %{y} <br> Mean Oxygen Level: %{z}<extra></extra>") %>%
+  layout(title = "Mean Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",
+         yaxis = yform, 
+         plot_bgcolor = 'grey')
+mean_heatmap_quarterly
+
+#mean heatmap quarterly with observations in hover
+
+txt_mean_quarter<-c("Obs:124","Obs:152","Obs:192","Obs:210","Obs:507","Obs:955","Obs:603","Obs:NaN","Obs:820","Obs:851",
        "Obs:959","Obs:778","Obs:1535","Obs:1353","Obs:991","Obs:589","Obs:1907","Obs:2445","Obs:1877","Obs:1132",
-       "Obs:1039","Obs:1001","Obs:690","Obs:647","Obs:373","Obs:858","Obs:721","Obs:1227","Obs:354","Obs:845",
-       "Obs:NA","Obs:NA","Obs:45","Obs:426","Obs:555","Obs:618","Obs:747","Obs:675","Obs:1262","Obs:1465",
+       "Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:858","Obs:721","Obs:1227","Obs:NaN","Obs:NaN",
+       "Obs:354","Obs:845","Obs:45","Obs:426","Obs:555","Obs:618","Obs:747","Obs:675","Obs:1262","Obs:1465",
        "Obs:1825","Obs:1521","Obs:1554","Obs:1766","Obs:1978","Obs:1411","Obs:656","Obs:340","Obs:512","Obs:705",
        "Obs:277","Obs:397","Obs:560","Obs:301","Obs:237","Obs:516","Obs:409","Obs:426","Obs:341","Obs:338",
-       "Obs:1315","Obs:1072","Obs:129","Obs:266","Obs:708","Obs:562","Obs:349","Obs:NaN","Obs:430","Obs:119",
-       "Obs:716","Obs:871","Obs:NaN","Obs:420","Obs:182","Obs:NaN","Obs:574","Obs:595","Obs:NaN","Obs:NaN",
-       "Obs:1306","Obs:877","Obs:1177","Obs:1392","Obs:NaN","Obs:NaN","Obs:64","Obs:NaN","Obs:65","Obs:NaN",
-       "Obs:NaN","Obs:NaN","Obs:1649","Obs:129","Obs:255","Obs:32","Obs:NaN","Obs:NaN","Obs:NaN","Obs:32",
-       "Obs:NaN","Obs:NaN","Obs:NaN","Obs:35","Obs:NaN","Obs:NaN","Obs:NaN","Obs:1113","Obs:1704","Obs:1541",
-       "Obs:1393","Obs:1471","Obs:492","Obs:41","Obs:NaN","Obs:214","Obs:NaN","Obs:NaN","Obs:NaN","Obs:427",
-       "Obs:1340","Obs:1128","Obs:1073","Obs:127","Obs:224","Obs:1265","Obs:445","Obs:NaN","Obs:312","Obs:NaN",
-       "Obs:NaN","Obs:NaN","Obs:425","Obs:624","Obs:649","Obs:822","Obs:2473","Obs:2153","Obs:1113","Obs:1137",
+       "Obs:1315","Obs:1072","Obs:129","Obs:266","Obs:NaN","Obs:708","Obs:562","Obs:349","Obs:430","Obs:119",
+       "Obs:716","Obs:871","Obs:NaN","Obs:NaN","Obs:420","Obs:NaN","Obs:NaN","Obs:NaN",
+       "Obs:574","Obs:595","Obs:1306","Obs:877","Obs:1177","Obs:1392","Obs:NaN","Obs:NaN","Obs:NaN",
+       "Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:1649","Obs:NaN","Obs:255","Obs:NaN","Obs:NaN",
+       "Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:1113","Obs:1704","Obs:1541",
+       "Obs:1393","Obs:1471","Obs:NaN","Obs:492","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:427",
+       "Obs:NaN","Obs:1340","Obs:1128","Obs:1073","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:1265",
+       "Obs:NaN","Obs:NaN","Obs:NaN","Obs:NaN","Obs:312","Obs:425","Obs:624","Obs:649","Obs:822","Obs:2473","Obs:2153","Obs:1113","Obs:1137",
        "Obs:777","Obs:966","Obs:834","Obs:834","Obs:1079","Obs:819","Obs:833","Obs:988","Obs:958","Obs:941",
        "Obs:934","Obs:945","Obs:825","Obs:959","Obs:2401","Obs:974","Obs:895","Obs:867","Obs:1079","Obs:857",
-       "Obs:866","Obs:777","Obs:900","Obs:895","Obs:1659","Obs:NaN","Obs:1117","Obs:559","Obs:880","Obs:886",
+       "Obs:866","Obs:777","Obs:900","Obs:895","Obs:NaN","Obs:1659","Obs:1117","Obs:559","Obs:880","Obs:886",
        "Obs:1102","Obs:611","Obs:1067","Obs:702","Obs:781","Obs:781","Obs:1306","Obs:297","Obs:827","Obs:743",
        "Obs:800","Obs:826","Obs:793","Obs:842","Obs:791","Obs:803","Obs:838","Obs:1192","Obs:810","Obs:830",
        "Obs:1388","Obs:371","Obs:1096","Obs:1245","Obs:1932","Obs:706","Obs:761","Obs:804","Obs:814","Obs:835",
        "Obs:816","Obs:984","Obs:602","Obs:814","Obs:778","Obs:802","Obs:810","Obs:833","Obs:988","Obs:564",
        "Obs:821","Obs:816","Obs:785","Obs:1084","Obs:791","Obs:761","Obs:1313","Obs:251","Obs:813","Obs:824",
        "Obs:840","Obs:851","Obs:867","Obs:835","Obs:824","Obs: 881","Obs:861","Obs:889","Obs:1086","Obs:710",
-       "Obs:595","Obs:789","Obs:1188:","Obs:428","Obs:867","Obs:837","Obs:1647","Obs:NaN","Obs:845","Obs:832",
+       "Obs:595","Obs:789","Obs:1188:","Obs:428","Obs:867","Obs:837","Obs:NaN","Obs:1647","Obs:845","Obs:832",
        "Obs:828","Obs:581","Obs:1009","Obs:715","Obs:823","Obs:746","Obs:797","Obs:812","Obs:1285","Obs:308",
        "Obs:821","Obs:810","Obs:807","Obs:834","Obs:812","Obs:907","Obs:458","Obs:728","Obs:822","Obs:827",
        "Obs:809","Obs:796","Obs:795","Obs:826","Obs:860","Obs:853","Obs:746","Obs:848","Obs:1040","Obs:611",
-       "Obs:801","Obs:821","Obs:579","Obs:1647","Obs:NaN","Obs:818","Obs:419","Obs:802","Obs:836","Obs:799",
-       "Obs:809","Obs:NaN","Obs:NaN","Obs:NaN")
+       "Obs:801","Obs:821","Obs:NaN","Obs:579","Obs:1647","Obs:818","Obs:419","Obs:802","Obs:836","Obs:799",
+       "Obs:NaN","Obs:NaN","Obs:NaN","Obs:809")
 
 mean_heatmap_quarterly2 <- plot_ly(x = total_mean_quarterly$year, 
                                    y = total_mean_quarterly$quarter,
                                    z = total_mean_quarterly$mean_oxy, 
+                                   text=txt_mean_quarter,
                                    type = "heatmap",
                                    colors = "magma",
-                                   text=txt4,
                                    reversescale = T, 
-                                   hovertemplate= "Year:%{x} <br> Quarter: %{y} <br> Mean Oxygen Level: %{z}<br> %{text}<extra></extra>") %>%
+                                   hovertemplate= "Year:%{x} <br> Quarter: %{y} <br> Mean Oxygen Level: %{z} <br> %{text} <extra></extra>") %>%
   layout(title = "Mean Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",
          yaxis = yform, 
          plot_bgcolor = 'grey')
 mean_heatmap_quarterly2
 
 
-## same as above but median
-
-median_data_quarterly <- get_oxy_percent_quarters(50, '1949-02-28', '2020-01-26')
-median_data_quarterly <- median_data_quarterly[c("year", "quarter", "oxygen_perc")]
-
-
-add_missing_data_med <- data.frame("year"=c(1956,1956,1965,1967,1967,1968,1968,1970,1970,1970,1971,1971,1971,1973,1973,
-                                      1973,1974,1974,1974,1976,1977,1977,1977,1978,1980,1980,1980,1981,1982,1982,
-                                      1982,1991,2009,2018,2020,2020,2020),
-                             "quarter"=c(3,4,4,1,4,3,4,1,2,4,2,3,4,1,2,3,1,2,3,3,1,2,3,4,1,2,3,4,2,3,4,2,2,3,2,3,4),
-                             "oxygen_perc"=c(NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN
-                                          ,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,
-                                          NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN))
-
-total_median_quarterly <- rbind(add_missing_data_med, median_data_quarterly) # append empty values with mean data
-
-# filter out quarters with under 5 stations sampled
-total_median_quarterly <- total_median_quarterly %>%
-  unite('time', c(year, quarter), remove = FALSE)  # add time column
-# change mean_oxy to NaN for selected times
-for (row in 1:nrow(total_median_quarterly)){
-  if (total_median_quarterly[row, "time"] %in% qts_under_threshold$time){
-    total_median_quarterly[row, "mean_oxy"] <- NaN
-  }
-}
-total_median_quarterly <- total_median_quarterly[c("year", "quarter", "oxygen_perc")]
-
-total_median_quarterly <- arrange(total_mean_quarterly, year) %>%
-  mutate(quarter = recode(quarter,'1' = 'Winter','2' = 'Spring','3' =  'Summer','4'='Fall' ))
-
-
-median_heatmap_quarterly2 <- plot_ly(x = total_median_quarterly$year, 
-                                   y = total_median_quarterly$quarter,
-                                   z = total_median_quarterly$mean_oxy, 
-                                   type = "heatmap",
-                                   colors = "magma",
-                                   reversescale = T, 
-                                   hovertemplate= "Year:%{x} <br> Quarter: %{y} <br> Mean Oxygen Level: %{z}<extra></extra>") %>%
-  layout(title = "Median Oxygen Levels in Core CalCOFI stations up to 300 meters, over quarters",
-         yaxis = yform, 
-         plot_bgcolor = 'grey')
-median_heatmap_quarterly2
 
 # test to make sure values displayed are correct
 test_ox_data<- bottle_filter %>% filter(year== 2000) %>% select(c("oxygen"))%>%na.omit()
@@ -460,6 +518,5 @@ ox_sum<-sum(test_ox_data$oxygen,na.rm = TRUE)
 ox_sum/nrow(test_ox_data)
 
 
-f<-bottle_filter%>%group_by(year)%>%count()
-f
+
 

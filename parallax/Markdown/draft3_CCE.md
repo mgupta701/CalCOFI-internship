@@ -1,6 +1,6 @@
 ---
 position: right
-imgurl: "images/CA_current_RD1.png"
+imgurl: "images/CA_current_RD1 copy.png"
 ---
 
 ## <span style="color:#8AC4D0"> The California Current Ecosystem </span>
@@ -19,3 +19,5 @@ California's commercial and recreational fishing activity was responsible for ne
   
   
 Keep scrolling to learn about an important physical characteristic of the CCE.
+
+

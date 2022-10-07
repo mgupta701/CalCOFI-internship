@@ -1,6 +1,6 @@
 ---
 position: right
-imgurl: "images/CalCOFI_logo.png"
+imgurl: "images/CalCOFI_logo copy.png"
 ---
 <br />
 <br />

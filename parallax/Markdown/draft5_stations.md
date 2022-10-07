@@ -1,6 +1,6 @@
 ---
 position: right
-imgurl: "images/Stations_RD1.png"
+imgurl: "images/Stations_RD1 copy.png"
 ---
 
 ADD: How is this data collected + what portion of the data are we interested in?

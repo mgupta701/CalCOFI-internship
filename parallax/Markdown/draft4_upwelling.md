@@ -1,6 +1,6 @@
 ---
 position: left
-imgurl: "images/Upwelling_RD2.png"
+imgurl: "images/Upwelling_RD2 copy.png"
 ---
 
 > <font size="+2"> A significant characteristic fueling the productivity in this region is that <span style="color:#28527A"> **the CCE is one of the four upwelling driven ecosystems** </span> in the world. </font>
@@ -8,9 +8,10 @@ imgurl: "images/Upwelling_RD2.png"
 
 
 
-## <span style="color:#8AC4D0"> Upwelling </span>
- 
-#### <span style="color:#28527A"> A natural phenomena most pronounced in the CCE in Spring and Summer </span>
+## <span style="color:#8AC4D0"> Up&#x2022;well&#x2022;ing <font size="+2"> /&#600;p&#44; &#39;weliNG/  
+
+<font size="+3"><i> Noun: </i> </span> <span style="color:#28527A"> A natural phenomena most pronounced in the CCE in Spring and Summer </span>
+
 
 
 <font size="+2">

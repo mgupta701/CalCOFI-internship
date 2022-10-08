@@ -9,15 +9,14 @@ imgurl: "images/CA_current_RD1 copy.png"
 
 --- 
 
-The California Current Ecosystem (CCE) is defined as the region of the ocean stretching along about 1900 miles vertically from southern British Columbia to Baja California^1 
-<br />
-<br />
-<br />
-California's commercial and recreational fishing activity was responsible for nearly **$25 billion** in economic activity and the creation of **142,000 jobs** in 2016, according to the National Marine Fisheries Service.
+<font size="+2"> The California Current Ecosystem (CCE) is defined as the region of the ocean stretching along about 1900 miles vertically from southern British Columbia to Baja California. </font>
 
-  
-  
-  
-Keep scrolling to learn about an important physical characteristic of the CCE.
+<font size="+2"> California's commercial and recreational fishing activity was responsible for nearly **$25 billion** in economic activity and the creation of **142,000 jobs** in 2016, according to the National Marine Fisheries Service. </font>
+
+<br />
+<br />
+<br />
+
+<font size="+1"> Keep scrolling to learn about an important physical characteristic of the CCE. </font>
 
 

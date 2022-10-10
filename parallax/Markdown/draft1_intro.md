@@ -9,11 +9,8 @@ imgurl: "images/CalCOFI_logo copy.png"
 <br />
 <font size="+2"> California has an undeniably huge economic, cultural, and historical dependence on the ocean, as <span style="color:#28527A"> the oceans provide us with vital gifts such as food, wellbeing, energy, medicine, and more. </span> </font>
   
-<font size="+2"> As a result of this dependence, state and federal organizations invest a great deal into researching and managing our interactions with marine ecosystems to ensure economic productivity and ecological sustainability. </font>
+<font size="+2"> Thus, CalCOFI is committed to comprehensively monitoring the California Current Ecosystem (CCE) to inform sustainable management of our marine resources and support the system's productivity. </font>
   
-<font size="+2"> This page will engage with observational data from one such organization, CalCOFI, to explore some significant findings of this work, particularly in the content of our changing climate. </font>
+<font size="+2"> This page will engage with CalCOFI's data on an essential component of the ecosystem, oxygen. We will explore oxygen's natural variability in the CCE and discuss how our changing climate's impacts on dissolved oxygen levels places the vitality of life in the ocean at increasing risk.  </font>
 
-<font size="+2"> We will focus in on an essential component of any marine ecosystem, oxygen, describe how it shows up in the dynamic California Current Ecosystem (CCE), and explore how the changing climate's impacts on oceanic oxygen levels may have detrimental effects on marine life in the CCE. </font>
-
-
-</font>
+<font size="+2"> Numerous studies of CalCOFI's dissolved oxygen data have demonstrated that oxygen levels have been declining in recent decades, which significantly disrupts the ecological balance of the CCE. ADD: Specific examples? </font>

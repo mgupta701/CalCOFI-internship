@@ -227,9 +227,9 @@ get_oxy_percent_quarters <- function(percentile, date_min, date_max){
 
 hm_median_quarters <- get_oxy_percent_quarters(50, '1949-02-28', '2020-01-26')
 hm_median_quarters <- hm_median_quarters %>% group_by(quarter,year)
-hm_median_quarters$quarter <- as.character(hm_median_quarters$quarter)
-hm_median_quarters <- hm_median_quarters %>%
-  mutate(quarter = recode(quarter,'1' = 'Winter','2' = 'Spring','3' =  'Summer','4'='Fall' ))
+# hm_median_quarters$quarter <- as.character(hm_median_quarters$quarter)
+# hm_median_quarters <- hm_median_quarters %>%
+#   mutate(quarter = recode(quarter,'1' = 'Winter','2' = 'Spring','3' =  'Summer','4'='Fall' ))
 yform <- list(categoryorder = "array",
               categoryarray = c( "Fall", 
                                 "Summer",
@@ -255,13 +255,18 @@ total_median_quarterly <- total_median_quarterly %>%
 # change mean_oxy to NaN for selected times
 for (row in 1:nrow(total_median_quarterly)){
   if (total_median_quarterly[row, "time"] %in% qts_under_threshold$time){
-    total_median_quarterly[row, "mean_oxy"] <- NaN
+    total_median_quarterly[row, "oxygen_perc"] <- NaN
   }
 }
-total_median_quarterly <- total_median_quarterly[c("year", "quarter", "oxygen_perc")]
+total_median_quarterly <- total_median_quarterly[c("year", 
+                                                   "quarter", 
+                                                   "oxygen_perc")]
 
 total_median_quarterly <- arrange(total_median_quarterly, year) %>%
-  mutate(quarter = recode(quarter,'1' = 'Winter','2' = 'Spring','3' =  'Summer','4'='Fall' ))
+  mutate(quarter = recode(quarter,'1' = 'Winter',
+                          '2' = 'Spring',
+                          '3' =  'Summer',
+                          '4'='Fall' ))
 
 median_heatmap_quarterly <- plot_ly(x = total_median_quarterly$year, 
                                      y = total_median_quarterly$quarter,

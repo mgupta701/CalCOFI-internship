@@ -1,6 +1,6 @@
 ---
 position: left
-imgurl: "images/Upwelling_RD2 copy.png"
+imgurl: "images/Upwelling_FD.png"
 ---
 
 <br />
@@ -20,3 +20,9 @@ imgurl: "images/Upwelling_RD2 copy.png"
 
 > <font size="+1"> These nutrients **fuel life in the ecosystem from the bottom up**, leading to the large populations of marine mammals, seabirds, and abundant fisheries in the region. </font>
 
+<font size="+1"> This same process that drives much of the CCE's productivity also makes the ecosystem uniquely vulnerable to the detrimental impacts of climate warming. CalCOFI's long-term observations of this region are essential to understanding this vulnerability and mitigating the resultant negative impacts on marine life.  </font>
+
+<br />
+<br />
+
+<font size="+1"> Below, we will discuss how CalCOFI’s observations of the CCE demonstrate this vulnerability. Scroll down to learn about which portions of CalCOFI’s data we will engage with. </font>

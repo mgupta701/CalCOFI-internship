@@ -16,4 +16,9 @@ imgurl: "images/CalCOFI_logo copy.png"
 
 <font size="+1"> These programs collect observations that are vital to generate the shared knowledge we need to address our increasingly complex social and environmental challenges. CalCOFI's work provides us with the wisdom we need to sustain and satisfy our collective needs. </font>
 
-<font size="+1"> The long historical record of their observations provides us with information that is increasingly more relevant to adapting and mitigating climate change. </font>
+<font size="+1"> CalCOFI has been collecting observations on the physics, biogeochemistry, and biology of the California Current Ecosystem since 1949. The long historical record of their observations provides us with information that is increasingly more relevant to adapting and mitigating climate change. </font>
+
+<br />
+<br />
+
+<font size="+1"> Scroll down to learn more about CalCOFI’s area of interest — the California Current Ecosystem. </font>

@@ -25,4 +25,4 @@ imgurl: "images/Upwelling_FD.png"
 <br />
 <br />
 
-<font size="+1"> Below, we will discuss how CalCOFI’s observations of the CCE demonstrate this vulnerability. Scroll down to learn about which portions of CalCOFI’s data we will engage with. </font>
+<font size="+1"> Below, we will discuss how CalCOFI's observations of the CCE demonstrate this vulnerability. Scroll down to learn about which portions of CalCOFI's data we will engage with. </font>

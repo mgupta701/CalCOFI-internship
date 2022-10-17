@@ -5,7 +5,8 @@ install.packages("ggplot2")
 install.packages("dplyr")
 install.packages("ggExtra")
 install.packages("heatmaply")
-
+install.packages("htmlwidgets")
+install.packages("dygraphs")
 
 library(plyr)
 library(lubridate)
@@ -14,8 +15,8 @@ library(dplyr)
 library(ggExtra)
 library(heatmaply)
 library(tidyr)
-
-
+library(htmlwidgets)
+library(dygraphs)
 load("data/processed/bottle.RData")
 
 # changing to numeric for filtering purposes
@@ -25,7 +26,7 @@ bottle$station <- as.numeric(bottle$station)
 
 #filter bottle data
 
-max_depth <- 150
+max_depth <- 300
 
 bottle_filter <- bottle %>%
   subset(station <= 60) %>%
@@ -83,9 +84,13 @@ x <- bottle_sub %>%
     theme_bw() 
 }
 
-oxy_ts_plot_percentile(3, 5, '1949-02-28', '2020-01-26')
+ts_data <- bottle_filter %>%
+  group_by(year, quarter, depth_fac) %>%
+  summarise(oxygen_perc = quantile(oxygen, probs = percentile/100, na.rm = TRUE),
+            date = median(date, na.rm = T))
 
-
+dygraph(hm_mean_years, main = "5th Percentile Oxygen levels") %>% 
+  dyRangeSelector()
 
 ## Faceting by  quarter
 
@@ -227,9 +232,9 @@ get_oxy_percent_quarters <- function(percentile, date_min, date_max){
 
 hm_median_quarters <- get_oxy_percent_quarters(50, '1949-02-28', '2020-01-26')
 hm_median_quarters <- hm_median_quarters %>% group_by(quarter,year)
-# hm_median_quarters$quarter <- as.character(hm_median_quarters$quarter)
-# hm_median_quarters <- hm_median_quarters %>%
-#   mutate(quarter = recode(quarter,'1' = 'Winter','2' = 'Spring','3' =  'Summer','4'='Fall' ))
+hm_median_quarters$quarter <- as.character(hm_median_quarters$quarter)
+hm_median_quarters <- hm_median_quarters %>%
+  mutate(quarter = recode(quarter,'1' = 'Winter','2' = 'Spring','3' =  'Summer','4'='Fall' ))
 yform <- list(categoryorder = "array",
               categoryarray = c( "Fall", 
                                 "Summer",
@@ -255,18 +260,13 @@ total_median_quarterly <- total_median_quarterly %>%
 # change mean_oxy to NaN for selected times
 for (row in 1:nrow(total_median_quarterly)){
   if (total_median_quarterly[row, "time"] %in% qts_under_threshold$time){
-    total_median_quarterly[row, "oxygen_perc"] <- NaN
+    total_median_quarterly[row, "mean_oxy"] <- NaN
   }
 }
-total_median_quarterly <- total_median_quarterly[c("year", 
-                                                   "quarter", 
-                                                   "oxygen_perc")]
+total_median_quarterly <- total_median_quarterly[c("year", "quarter", "oxygen_perc")]
 
 total_median_quarterly <- arrange(total_median_quarterly, year) %>%
-  mutate(quarter = recode(quarter,'1' = 'Winter',
-                          '2' = 'Spring',
-                          '3' =  'Summer',
-                          '4'='Fall' ))
+  mutate(quarter = recode(quarter,'1' = 'Winter','2' = 'Spring','3' =  'Summer','4'='Fall' ))
 
 median_heatmap_quarterly <- plot_ly(x = total_median_quarterly$year, 
                                      y = total_median_quarterly$quarter,
@@ -525,19 +525,44 @@ txt_mean_quarter<-c("Obs:124","Obs:152","Obs:192","Obs:210","Obs:507","Obs:955",
        "Obs:801","Obs:821","Obs:NaN","Obs:579","Obs:1647","Obs:818","Obs:419","Obs:802","Obs:836","Obs:799",
        "Obs:NaN","Obs:NaN","Obs:NaN","Obs:809")
 
+m <- list(
+  l = 50,
+  r = 50,
+  b = 100,
+  t = 100,
+  pad = 4
+)
+
+
+
+mycols <- c("#28527A","#8AC4D0","#F4D160","#FBEEAC")
+
 mean_heatmap_quarterly2 <- plot_ly(x = total_mean_quarterly$year, 
                                    y = total_mean_quarterly$quarter,
                                    z = total_mean_quarterly$mean_oxy, 
                                    text=txt_mean_quarter,
                                    type = "heatmap",
-                                   colors = "magma",
+                                   colors = mycols,
                                    reversescale = T, 
                                    hovertemplate= "Year:%{x} <br> Quarter: %{y} <br> Mean Oxygen Level: %{z} <br> %{text} <extra></extra>") %>%
-  layout(title = paste("Mean Oxygen Levels in Core CalCOFI stations up to", max_depth, "meters, over quarters"),
+  layout(title = paste("Mean Quarterly Oxygen Levels up to", max_depth, "meters <br> Data from Core CalCOFI stations"),
          yaxis = yform, 
-         plot_bgcolor = 'grey')
+         plot_bgcolor = 'grey', margin=m)
+  
+
+
 mean_heatmap_quarterly2
 
+
+
+htmlwidgets::saveWidget(widget = mean_heatmap_quarterly2,
+                        file = "mean_quarter.html",
+                        selfcontained = TRUE)
+
+
+
+
+#saveWidget(mean_heatmap_quarterly2, "mean_heatmap.html", selfcontained = F, libdir = "lib")
 
 
 # test to make sure values displayed are correct
@@ -547,4 +572,7 @@ ox_sum/nrow(test_ox_data)
 
 
 
-
+mean_temp_quarterly <- bottle_filter %>%
+  group_by(year,quarter) %>%
+  summarise(mean_temp = mean(temperature,na.rm = TRUE))
+mean_temp_quarterly

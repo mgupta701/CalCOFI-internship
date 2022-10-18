@@ -7,7 +7,7 @@ imgurl: "images/Upwelling_FD.png"
 
 ## <span style="color:#8AC4D0"> Up&#x2022;well&#x2022;ing <font size="+2"> /&#600;p&#44; &#39;weliNG/  
 
-<font size="+2"><i> Noun: </i> </span> <span style="color:#28527A"> A natural phenomena most pronounced in the CCE in Spring and Summer </span>
+<font size="+2"> *Noun:* <span style="color:#28527A"> **A natural phenomena most pronounced in the CCE in Spring and Summer** </span>
 
 ---
 
@@ -19,6 +19,8 @@ imgurl: "images/Upwelling_FD.png"
 > <font size="+1"> This is significant because deeper waters are **colder** and **contain more nutrients** due to the collection of decomposing organic sediment. </font>
 
 > <font size="+1"> These nutrients **fuel life in the ecosystem from the bottom up**, leading to the large populations of marine mammals, seabirds, and abundant fisheries in the region. </font>
+
+<br />
 
 <font size="+1"> This same process that drives much of the CCE's productivity also makes the ecosystem uniquely vulnerable to the detrimental impacts of climate warming. CalCOFI's long-term observations of this region are essential to understanding this vulnerability and mitigating the resultant negative impacts on marine life.  </font>
 

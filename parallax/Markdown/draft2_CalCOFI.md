@@ -10,13 +10,13 @@ imgurl: "images/CalCOFI_logo copy.png"
 
 ---
 
-<font size="+1"> CalCOFI is the **oldest integrated ecosystem ocean observing program** in the world. </font>
+<font size="+1"> CalCOFI is the <span style="color:#28527A"> **oldest integrated ecosystem ocean observing program** </span> in the world. </font>
 
 <font size="+1"> Ocean observing programs are research and monitoring programs that collect long term measurements on the environment and ecology of the information. </font>
 
 <font size="+1"> These programs collect observations that are vital to generate the shared knowledge we need to address our increasingly complex social and environmental challenges. Given all the gifts we receive from the oceans, CalCOFI's work provides us with the wisdom we need to sustain and satisfy our collective needs. </font>
 
-<font size="+1"> CalCOFI has been <span style="color:#28527A"> collecting observations on the physics, biogeochemistry, and biology of the California Current Ecosystem since 1949. </span> The long historical record of their observations provides us with information that is increasingly more relevant to adapting and mitigating climate change. </font>
+<font size="+1"> CalCOFI has been <span style="color:#28527A"> **collecting observations on the physics, biogeochemistry, and biology of the California Current Ecosystem since 1949.** </span> The long historical record of their observations provides us with information that is increasingly more relevant to adapting and mitigating climate change. </font>
 
 <br />
 <br />

@@ -11,9 +11,11 @@ imgurl: "images/Stations_FD.png"
 
 <font size="+1"> While some of these measurements are collected continuously over the duration of each cruise, a majority of the data is recorded at <a href="https://calcofi.org/sampling-info/station-positions/" style="color: #28527A; text-decoration: underline;"> distinct sampling station points</a>.
 
-<font size="+1"> <span style="color:#28527A"> **Fig. 3** </span> displays CalCOFI's core sampling station grid. This core grid spans the waters in and beyond the Southern California Bight, the curved section of the CA coastline from Point Conception to San Diego. The bight creates a large, productive open bay with diverse seafloor habitats and marine life, and is also the most densely populated region of the CA coast. </font>
+<font size="+1"> <span style="color:#28527A"> **Fig. 3** </span> displays CalCOFI's core sampling station grid. </font>
 
-<font size="+1"> This page will analyze data collected from the core sampling stations on the continental shelf, discuss the natural variation in dissolved oxygen levels, and examine how this variability is made more unpredictable due to the effects of climate warming. </font>
+<font size="+1"> This core grid spans the waters in and beyond the Southern California Bight, the curved section of the CA coastline from Point Conception to San Diego. The bight creates a large, productive open bay with diverse seafloor habitats and marine life, and is also the most densely populated region of the CA coast. </font>
+
+<font size="+1"> This page will analyze data collected from the core sampling stations located on the continental shelf, discuss the natural variation in dissolved oxygen levels, and examine how this variability is made more unpredictable due to the effects of climate warming. </font>
 
 <br />
 <br />

@@ -89,9 +89,24 @@ ts_data <- bottle_filter %>%
   summarise(oxygen_perc = quantile(oxygen, probs = percentile/100, na.rm = TRUE),
             date = median(date, na.rm = T))
 
-dygraph(hm_mean_years, main = "5th Percentile Oxygen levels") %>% 
-  dyRangeSelector()
+ts_int<-dygraph(hm_mean_years, main = "Mean Oxygen Levels",ylab="Oxygen (mL/L)") %>% 
+  dyOptions(drawGrid = FALSE)%>%
+  dyRangeSelector() %>% 
+  dyOptions(colors = "#8AC4D0",fillGraph = TRUE, fillAlpha = 0.4) %>%
+  dyShading(from = 1957, to = 1958, color = "#FBEEAC")%>%
+  dyShading(from = 1965, to = 1966, color = "#FBEEAC")%>%
+  dyShading(from = 1972, to = 1973, color = "#FBEEAC")%>%
+  dyShading(from = 1982, to = 1983, color = "#FBEEAC")%>%
+  dyShading(from = 1987, to = 1988, color = "#FBEEAC")%>%
+  dyShading(from = 1991, to = 1992, color = "#FBEEAC")%>%
+  dyShading(from = 1997, to = 1998, color = "#FBEEAC")%>%
+  dyShading(from = 2015, to = 2016, color = "#FBEEAC")%>%
+  dySeries(label="Mean Oxygen Level")
+  
 
+
+dygraph(hm_mean_years, main = "Mean Oxygen Levels",ylab="Oxygen (mL/L)") %>% 
+  dySeries("mean_oxy", strokeWidth = 2, strokePattern = "dashed")
 ## Faceting by  quarter
 
 oxy_ts_plot_percentile_quarters <- function(n_ranges, percentile, date_min, date_max){
@@ -536,7 +551,7 @@ m <- list(
 
 
 mycols <- c("#28527A","#8AC4D0","#F4D160","#FBEEAC")
-
+na_vals<-c("#E0DFDF")
 mean_heatmap_quarterly2 <- plot_ly(x = total_mean_quarterly$year, 
                                    y = total_mean_quarterly$quarter,
                                    z = total_mean_quarterly$mean_oxy, 
@@ -547,7 +562,7 @@ mean_heatmap_quarterly2 <- plot_ly(x = total_mean_quarterly$year,
                                    hovertemplate= "Year:%{x} <br> Quarter: %{y} <br> Mean Oxygen Level: %{z} <br> %{text} <extra></extra>") %>%
   layout(title = paste("Mean Quarterly Oxygen Levels up to", max_depth, "meters <br> Data from Core CalCOFI stations"),
          yaxis = yform, 
-         plot_bgcolor = 'grey', margin=m)
+         plot_bgcolor = na_vals, margin=m)
   
 
 
@@ -571,8 +586,104 @@ ox_sum<-sum(test_ox_data$oxygen,na.rm = TRUE)
 ox_sum/nrow(test_ox_data)
 
 
+## get data frame for depths 0-150 
+bottle_filter <- bottle %>%
+  subset(station <= 60) %>%
+  filter(depth >= 0 & depth <= 150,
+         line >= 76.7 & line <= 93.3)
 
-mean_temp_quarterly <- bottle_filter %>%
-  group_by(year,quarter) %>%
-  summarise(mean_temp = mean(temperature,na.rm = TRUE))
-mean_temp_quarterly
+get_oxygen_perc_shallow <- function(percentile, date_min, date_max){
+  
+  h <- bottle_filter %>%
+    group_by(year) %>%
+    summarise(oxygen_perc = quantile(oxygen, probs = percentile/100, na.rm = TRUE),
+              date = median(date, na.rm = T))
+  
+  return(h)
+}
+
+ts_shallow <- get_oxygen_perc_shallow(50, '1949-02-28', '2020-01-26')
+ts_shallow <- ts_shallow %>% group_by(year)
+
+
+
+
+for (row in 1:nrow(ts_shallow)){
+  if (ts_shallow[row, "year"] %in% yrs_under_threshold$year){
+    ts_shallow[row, "oxygen_perc"] <- NaN
+  }
+}
+
+
+
+## get data frame for depths 150-300
+bottle_filter <- bottle %>%
+  subset(station <= 60) %>%
+  filter(depth >= 150 & depth <= 300,
+         line >= 76.7 & line <= 93.3)
+
+get_oxygen_perc_med <- function(percentile, date_min, date_max){
+  
+  h <- bottle_filter %>%
+    group_by(year) %>%
+    summarise(oxygen_perc = quantile(oxygen, probs = percentile/100, na.rm = TRUE),
+              date = median(date, na.rm = T))
+  
+  return(h)
+}
+
+ts_med <- get_oxygen_perc_med(50, '1949-02-28', '2020-01-26')
+ts_med <- ts_med %>% group_by(year)
+
+
+
+
+for (row in 1:nrow(ts_med)){
+  if (ts_med[row, "year"] %in% yrs_under_threshold$year){
+    ts_med[row, "oxygen_perc"] <- NaN
+  }
+}
+
+## get data frame for depths 300-500
+bottle_filter <- bottle %>%
+  subset(station <= 60) %>%
+  filter(depth >= 300 & depth <= 500,
+         line >= 76.7 & line <= 93.3)
+
+get_oxygen_perc_deep <- function(percentile, date_min, date_max){
+  
+  h <- bottle_filter %>%
+    group_by(year) %>%
+    summarise(oxygen_perc = quantile(oxygen, probs = percentile/100, na.rm = TRUE),
+              date = median(date, na.rm = T))
+  
+  return(h)
+}
+
+ts_deep <- get_oxygen_perc_deep(50, '1949-02-28', '2020-01-26')
+ts_deep <- ts_deep %>% group_by(year)
+
+
+
+
+
+for (row in 1:nrow(ts_deep)){
+  if (ts_deep[row, "year"] %in% yrs_under_threshold$year){
+    ts_deep[row, "oxygen_perc"] <- NaN
+  }
+}
+
+ts_shallow <- ts_shallow %>% select(c("year","oxygen_perc"))
+for (row in 1:nrow(ts_deep)){
+  if (is.na((ts_deep[row, "oxygen_perc"]))){
+    ts_deep[row, "oxygen_perc"] <- NaN
+  }}
+ts_med <- ts_med %>% select(c("year","oxygen_perc"))
+ts_deep <- ts_deep %>% select(c("year","oxygen_perc"))
+shallow_deep <- merge(ts_shallow, ts_deep, by="year")
+
+dygraph(ts_deep, main = "Median Oxygen Levels")
+
+
+
+

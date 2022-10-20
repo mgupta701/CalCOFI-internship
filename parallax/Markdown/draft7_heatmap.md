@@ -22,6 +22,6 @@ imgurl: "images/CalCOFI_logo copy.png"
 [POTENTIALLY ADD: comparison between highs and lows for our oxygen data against the upwelling indices recorded for each quarter.]
 
 
-<iframe seamless src= "https://aradams11.github.io/widgets/mean_quarter.html" width="100%" height="700"></iframe>
+<iframe seamless src= "https://aradams11.github.io/widgets/mean_quarter2.html" width="100%" height="700"></iframe>
 
 

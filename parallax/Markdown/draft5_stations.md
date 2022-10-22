@@ -3,7 +3,7 @@ position: right
 imgurl: "images/Stations_FD.png"
 ---
 
-## <span style="color:#28527A"> How does CalCOFI monitor the CCE? </span>
+### <span style="color:#28527A"> How does CalCOFI sample off the coast of California? </span>
 
 --- 
 
@@ -11,13 +11,13 @@ imgurl: "images/Stations_FD.png"
 
 <font size="+1"> While some of these measurements are collected continuously over the duration of each cruise, a majority of the data is recorded at <a href="https://calcofi.org/sampling-info/station-positions/" style="color: #28527A; text-decoration: underline;"> distinct sampling station points</a>.
 
-<font size="+1"> <span style="color:#28527A"> **Fig. 3** </span> displays CalCOFI's core sampling station grid. </font>
+<font size="+1"> <span style="color:#28527A"> **Fig. 3** </span> displays the core region where CalCOFI samples, known as CalCOFI's core sampling station grid. </font>
 
-<font size="+1"> This core grid spans the waters in and beyond the Southern California Bight, the curved section of the CA coastline from Point Conception to San Diego. The bight creates a large, productive open bay with diverse seafloor habitats and marine life, and is also the most densely populated region of the CA coast. </font>
+<font size="+1"> This core grid spans the waters in and beyond the Southern California Bight, the curved section of the CA coastline from Point Conception south to San Diego. The Bight creates a large, productive open bay with diverse seafloor habitats and marine life, and is also the most densely populated region of the CA coast. </font>
 
-<font size="+1"> This page will analyze data collected from the core sampling stations located on the continental shelf, discuss the natural variation in dissolved oxygen levels, and examine how this variability is made more unpredictable due to the effects of climate warming. </font>
+<font size="+1"> This page will showcase data collected from the core sampling stations located on the continental shelf. Dissolved oxygen levels are monitored at each of these stations by analyzing seawater samples collected at different depths under each location: from the surface down to over 1000 meters deep. </font>
 
 <br />
 <br />
 
-<font size="+1"> Keep scrolling to learn more about oxygen's presence in the ocean. </font>
+<font size="+1"> Curious to learn more about how oxygen is changing off the coast of California? Scroll down to learn more, including what it all means for marine life and people in California. </font>

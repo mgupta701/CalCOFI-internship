@@ -22,7 +22,7 @@ imgurl: "images/Upwelling_FD.png"
 
 <br />
 
-<font size="+1"> This same process that drives much of the productivity off the coast of California also makes the ecosystem uniquely vulnerable to the detrimental impacts of climate change.. CalCOFI's long-term observations of this region are essential to understanding this vulnerability and mitigating the resulting negative impacts on marine life and California communities.  </font>
+<font size="+1"> This same process that drives much of the productivity off the coast of California also makes the ecosystem uniquely vulnerable to the detrimental impacts of climate change. CalCOFI's long-term observations of this region are essential to understanding this vulnerability and mitigating the resulting negative impacts on marine life and California communities.  </font>
 
 <br />
 <br />

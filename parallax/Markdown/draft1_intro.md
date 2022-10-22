@@ -16,7 +16,7 @@ imgurl: "images/Title_Graphic.png"
   
 <font size="+1"> Numerous studies of CalCOFI's oxygen data have demonstrated that oxygen levels have been declining off of the California coast, disrupting the balance of the marine ecosystem. <span style="color:#28527A"> **De-oxygenation can reduce species growth and survival** </span>, causing many mobile animals like sharks to move to shallower waters with more oxygen. In co-occurrence with marine heatwaves and ocean acidification, declining oxygen levels can even trigger coral bleaching. </font>
 
-<font size="+1"> <span style="color:#28527A"> **Here, we will take you on a journey to explore CalCOFI's data on oxygen levels, to explore how this critical component of the ecosystem varies naturally in the ocean off of the California coast and discuss how the changing climate’s impact on oxygen places the vitality of life throughout the ocean at risk.** </span> </font>
+<font size="+1"> <span style="color:#28527A"> **Here, we will take you on a journey to explore CalCOFI's data on oxygen levels, to explore how this critical component of the ecosystem varies naturally in the ocean off of the California coast and discuss how the changing climate's impact on oxygen places the vitality of life throughout the ocean at risk.** </span> </font>
 
 <br />
 <br />

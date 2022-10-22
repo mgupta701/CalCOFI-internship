@@ -3,7 +3,7 @@ position: right
 imgurl: "images/CalCOFI_logo copy.png"
 ---
 
-### <span style="color:#28527A"> How does oxygen vary seasonally off the coast of California? </span>
+## <span style="color:#28527A"> How does oxygen vary seasonally off the coast of California? </span>
 
 --- 
 
@@ -11,7 +11,7 @@ imgurl: "images/CalCOFI_logo copy.png"
 
 <font size="+1">These nutrients increase ecosystem productivity by fueling phytoplankton algal blooms that support large populations of consumers, with the effects rippling throughout the food web.</font> 
 
-<font size="+1">During these productive seasons, respiratory demand for oxygen is increased, furthering de-oxygenation. Furthermore, climate change is hypothesized to intensify the upwelling - favorable wind stress, which would increase the risk of hypoxia throughout the CCE.</font>
+<font size="+1">During these productive seasons, respiratory demand for oxygen is increased, furthering de-oxygenation. Furthermore, climate change is hypothesized to intensify upwelling, which would increase the risk of hypoxia throughout the CCE.</font>
 
 <font size="+1">Analysis of CalCOFI's data reflects lower oxygen levels during the upwelling seasons.</font>
 
@@ -19,8 +19,10 @@ imgurl: "images/CalCOFI_logo copy.png"
 
 <font size="+1">It is evident that <span style="color:#28527A">**spring and summer have lower oxygen levels on average when compared to winter and fall.**</span></font>
 
+<br />
+<br />
 
-##### Figure 5
+### Figure 5
 
 <iframe seamless src= "https://aradams11.github.io/widgets/mean_quarter2.html" width="100%" height="700"></iframe>
 

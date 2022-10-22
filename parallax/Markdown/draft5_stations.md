@@ -3,7 +3,7 @@ position: right
 imgurl: "images/Stations_FD.png"
 ---
 
-### <span style="color:#28527A"> How does CalCOFI sample off the coast of California? </span>
+## <span style="color:#28527A"> How does CalCOFI sample off the coast of California? </span>
 
 --- 
 
@@ -20,4 +20,4 @@ imgurl: "images/Stations_FD.png"
 <br />
 <br />
 
-<font size="+1"> Curious to learn more about how oxygen is changing off the coast of California? Scroll down to learn more, including what it all means for marine life and people in California. </font>
+<font size="+1"> Curious to learn more about how oxygen is changing off the coast of California? Scroll down to learn more about oxygen's natural variability, including what it means for marine life and people in California. </font>

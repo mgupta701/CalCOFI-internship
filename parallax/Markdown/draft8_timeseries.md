@@ -1,6 +1,6 @@
 ---
-position: right
-imgurl: "takeaways.png"
+position: left
+imgurl: "images/timeseries_text.png"
 ---
 
 <br />

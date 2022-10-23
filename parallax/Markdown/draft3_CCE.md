@@ -9,7 +9,7 @@ imgurl: "images/CA_current_FD.png"
 
 --- 
 
-<font size="+1"> The California Current Ecosystem (CCE) is defined as the region of the ocean highlighted in <span style="color:#28527A"> **Fig. 1** </span> stretching along about 1900 miles vertically from <span style="color:#28527A"> **southern British Columbia to Baja California.** </span> </font>
+<font size="+1"> Right off of the coast of California is the region of the ocean known as the California Current Ecosystem (CCE). The CCE is the area of the ocean highlighted in <span style="color:#28527A"> **Fig. 1** </span> stretching  about 1900 miles vertically from <span style="color:#28527A"> **southern British Columbia to Baja California.** </span> </font>
 
 <font size="+1"> California's commercial and recreational fishing activity was responsible for nearly $25 billion in economic activity and the creation of 142,000 jobs in 2016, according to the National Marine Fisheries Service. </font>
 
@@ -18,6 +18,6 @@ imgurl: "images/CA_current_FD.png"
 <br />
 <br />
 
-<font size="+1"> Scroll down to learn more about this important physical characteristic of the CCE. </font>
+<font size="+1"> Curious to learn about what upwelling is? Scroll down! </font>
 
 

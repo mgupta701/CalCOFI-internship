@@ -3,7 +3,7 @@ position: left
 imgurl: "images/Oxygen_Cycle_FD.png"
 ---
 
-## <span style="color:#28527A"> How is oxygen changing in the CCE? </span>
+## <span style="color:#28527A"> How is oxygen changing off the coast of California? </span>
 
 --- 
 
@@ -24,5 +24,5 @@ imgurl: "images/Oxygen_Cycle_FD.png"
 <br />
 <br />
 
-<font size="+1">Continue scrolling to learn more about how upwelling furthers the reduction of oxygen levels.</font>
+<font size="+1">Curious to know how upwelling futhers the reduction of oxygen levels? Scroll down to find out!</font>
 

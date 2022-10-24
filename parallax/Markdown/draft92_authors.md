@@ -21,11 +21,11 @@ imgurl: "images/Meet_the_Authors.png"
 
 <font size="+1">This project would not have been possible without the support of our mentors:</font>
 
-<font size="+2">Erin Satterthwaite</font>
+<font size="+1"><span style="color:#28527A">Erin Satterthwaite</span></font>
 
 <font size="+1">Marine ecologist & CalCOFI Program coordinator with California Sea Grant</font>
 
-<font size="+2">Trevor Ruiz</font>
+<font size="+1"><span style="color:#28527A">Trevor Ruiz</span></font>
 
 <font size="+1">Visiting professor at the UCSB Department of Statistics and Applied Probability</font>
 

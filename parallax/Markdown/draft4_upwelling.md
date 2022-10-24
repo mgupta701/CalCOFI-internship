@@ -1,5 +1,5 @@
 ---
-position: left
+position: right
 imgurl: "images/Upwelling_FD.png"
 ---
 

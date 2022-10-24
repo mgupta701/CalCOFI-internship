@@ -3,8 +3,6 @@ position: left
 imgurl: "images/timeseries_text.png"
 ---
 
-<br />
-<br />
 
 ### <span style="color:#28527A"> Figure 6 </span>
 

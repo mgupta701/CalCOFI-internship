@@ -1,5 +1,5 @@
 ---
-position: left
+position: right
 imgurl: "images/About_The_Data.png"
 ---
 
@@ -21,7 +21,7 @@ The code for this project can be found here. [will add link]
 
 <font size="-1">Gallo, Natalya D., et al. "Bridging from Monitoring to Solutions-Based Thinking: Lessons from Calcofi for Understanding and Adapting to Marine Climate Change Impacts." Frontiers in Marine Science, vol. 6, 2019, https://doi.org/10.3389/fmars.2019.00695.</font>
 
-<font size="-1">Limburg, Karin E., et al. "Ocean Deoxygenation: A Primer." One Earth, vol. 2, no. 1, 2020, pp. 24–29., https://doi.org/10.1016/j.oneear.2020.01.001. </font>
+<font size="-1">Limburg, Karin E., et al. "Ocean Deoxygenation: A Primer." One Earth, vol. 2, no. 1, 2020, pp. 24-29., https://doi.org/10.1016/j.oneear.2020.01.001. </font>
 
 <font size="-1">"Midwestern Regional Climate Center." MRCC, https://mrcc.purdue.edu/mw_climate/elNino/climatology.jsp#:~:text=the%20definition%20of%20a%20strong,%2D83%20and%201997%2D98. </font>
 

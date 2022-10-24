@@ -13,7 +13,7 @@ imgurl: "images/Meet_the_Authors.png"
 
 #### <span style="color:#28527A">Mallika Gupta</span>
 
-<font size="+1">Mallika graduated from UC Santa Barbara in June ‘22 with a B.S. in Financial Math and Statistics and a minor in Feminist Studies. Mallika is deeply interested in data visualization, science communication, and user interface design. She has worked with CalCOFI in the past to create a <a href="https://shiny.calcofi.io/capstone/" style="color: #28527A; text-decoration: underline;">data visualization tool</a> and hopes to continue applying her skills and experience to more work within environmental data science. In her free time, Mallika enjoys doing yoga, reading, singing, and playing guitar.</font>
+<font size="+1">Mallika graduated from UC Santa Barbara in June '22 with a B.S. in Financial Math and Statistics and a minor in Feminist Studies. Mallika is deeply interested in data visualization, science communication, and user interface design. She has worked with CalCOFI in the past to create a <a href="https://shiny.calcofi.io/capstone/" style="color: #28527A; text-decoration: underline;">data visualization tool</a> and hopes to continue applying her skills and experience to more work within environmental data science. In her free time, Mallika enjoys doing yoga, reading, singing, and playing guitar.</font>
 
 <br /> 
 

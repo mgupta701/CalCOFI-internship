@@ -1,5 +1,5 @@
 ---
-position: left
+position: right
 imgurl: "images/Oxygen_Cycle_FD.png"
 ---
 

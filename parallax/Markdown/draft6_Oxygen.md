@@ -19,7 +19,7 @@ imgurl: "images/Oxygen_Cycle_FD.png"
 
 > <font size="+1"> <span style="color:#28527A"> **Hypoxia occurs when the rate of oxygen consumption in a region exceeds the rate at which oxygen is replenished.** Climate warming disrupts the balance between these two processes and has been worsening de-oxygenation in the CCE.</span> </font>
 
-<font size="+1"> <span style="color:#28527A"> **Fig. 4** </span> displays how various physical processes affect dissolved oxygen levels in the ocean. Climate change affects these processes, as highlighted by the green text, leading to the expansion of hypoxic zones throughout the deeper waters of the CCE. These hypoxic waters are then brought to the surface near the coast via upwelling.</font>
+<font size="+1"> <span style="color:#28527A"> **Fig. 4** </span> displays how various physical processes affect dissolved oxygen levels in the ocean. Climate change affects these processes, as highlighted by the green text, leading to the expansion of hypoxic zones throughout the deeper waters of the CCE. </font>
 
 <br />
 <br />

@@ -13,6 +13,8 @@ The graphs above utilized data from the upper 300 meters of samples, collected f
 
 The code for this project can be found here. [will add link] 
 
+Graphics drawn by Mallika Gupta. Adapted from references below.
+
 ##### <span style="color:#28527A">References</span>
 
 <font size="-1">Breitburg, Denise, et al. "The Ocean Is Losing Its Breath: Declining Oxygen in the World's Ocean and Coastal Waters; Summary for Policy Makers." 2018, https://unesdoc.unesco.org/ark:/48223/pf0000265196. </font>
@@ -25,12 +27,10 @@ The code for this project can be found here. [will add link]
 
 <font size="-1">"Midwestern Regional Climate Center." MRCC, https://mrcc.purdue.edu/mw_climate/elNino/climatology.jsp#:~:text=the%20definition%20of%20a%20strong,%2D83%20and%201997%2D98. </font>
 
-<font size="-1">Nam, SungHyun, et al. "Amplification of Hypoxic and Acidic Events by La Niña Conditions on the Continental Shelf off California." AGU Publications - Wiley Online Library , https://agupubs.onlinelibrary.wiley.com/. </font>
+<font size="-1">Nam, SungHyun, et al. "Amplification of Hypoxic and Acidic Events by La Ni&#241;a Conditions on the Continental Shelf off California." AGU Publications - Wiley Online Library , https://agupubs.onlinelibrary.wiley.com/. </font>
 
 <font size="-1">Quan, Jenna. "What Is Coastal Upwelling and Why Is It Important?" Coastal and Marine Sciences Institute, 23 Mar. 2021, https://marinescience.ucdavis.edu/blog/upwelling. </font>
 
 <font size="-1">Ren, Alice S., et al. "A Sixteen-Year Decline in Dissolved Oxygen in the Central California Current." Nature News, Nature Publishing Group, 8 May 2018, https://www.nature.com/articles/s41598-018-25341-8. </font>
 
 <font size="-1">University of California Television. "Research for Resilience on a Changing Planet - The California Cooperative Oceanic Fisheries Investigations." UCTV, University of California Television, https://www.uctv.tv/shows/Research-for-Resilience-on-a-Changing-Planet-The-California-Cooperative-Oceanic-Fisheries-Investigations-37033. </font>
-
-Graphics created by Mallika Gupta

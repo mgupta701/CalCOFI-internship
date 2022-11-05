@@ -6,6 +6,8 @@ imgurl: "images/Meet_the_Authors.png"
 <br />
 <br /> 
 
+<font size="+1"><span style="color:#28527A">This page was created by data storytelling interns with CalCOFI and California Sea Grant, Annie and Mallika. </span></font>
+
 #### <span style="color:#28527A">Annie Adams</span>
 
 <font size="+1">Annie recently graduated from UCSB, majoring in Statistics and Data Science with a minor in Feminist Studies. She is interested in analyzing data pertaining to the changing climate and environment. Her particular areas of interest are ecosystem services and the socioeconomic impacts of climate change. Annie loves spending time outdoors hiking, biking, camping, and running. </font>
@@ -21,13 +23,12 @@ imgurl: "images/Meet_the_Authors.png"
 
 <font size="+1">This project would not have been possible without the support of our mentors:</font>
 
-<font size="+1"><span style="color:#28527A">Erin Satterthwaite</span></font>
+<font size="+1"><span style="color:#28527A">Erin Satterthwaite &#x2022; Marine ecologist & CalCOFI Program coordinator with California Sea Grant</span></font>
 
-<font size="+1">Marine ecologist & CalCOFI Program coordinator with California Sea Grant</font>
+<font size="+1"><span style="color:#28527A">Trevor Ruiz &#x2022; Visiting professor at the UCSB Department of Statistics and Applied Probability</span></font>
 
-<font size="+1"><span style="color:#28527A">Trevor Ruiz</span></font>
+Thank you to our reviewers, Alice Ren and ___, for your feedback!
 
-<font size="+1">Visiting professor at the UCSB Department of Statistics and Applied Probability</font>
 
 
 

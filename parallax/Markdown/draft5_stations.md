@@ -7,9 +7,9 @@ imgurl: "images/Stations_FD.png"
 
 --- 
 
-<font size="+1"> CalCOFI conducts quarterly research cruises off the southern and central California coast to collect a <a href="https://calcofi.org/sampling-info/" style="color: #28527A; text-decoration: underline;">vast range of physical, chemical, and biological data</a>; weather, bird, and marine mammal observation, seawater collection and analysis, biological sample collection using various nets, and more. </font>
+<font size="+1"> CalCOFI conducts quarterly research cruises off the southern and central California coast to collect a <a href="https://calcofi.org/sampling-info/" target="_blank" rel="noopener noreferrer" style="color: #28527A; text-decoration: underline;">vast range of physical, chemical, and biological data</a>; weather, bird, and marine mammal observation, seawater collection and analysis, biological sample collection using various nets, and more. </font>
 
-<font size="+1"> While some of these measurements are collected continuously over the duration of each cruise, a majority of the data is recorded at <a href="https://calcofi.org/sampling-info/station-positions/" style="color: #28527A; text-decoration: underline;"> distinct sampling station points</a>.
+<font size="+1"> While some of these measurements are collected continuously over the duration of each cruise, a majority of the data is recorded at <a href="https://calcofi.org/sampling-info/station-positions/" target="_blank" rel="noopener noreferrer" style="color: #28527A; text-decoration: underline;"> distinct sampling station points</a>.
 
 <font size="+1"> <span style="color:#28527A"> **Fig. 3** </span> displays the core region where CalCOFI samples, known as CalCOFI's core sampling station grid. </font>
 
